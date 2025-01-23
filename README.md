@@ -1,7 +1,7 @@
 - Clone the repo
 
 ```jsx
-git clone https:git@github.com:FazlulKarimC/QuickPay.git
+git clone https:github.com:FazlulKarimC/QuickPay.git
 ```
 
 - npm install
