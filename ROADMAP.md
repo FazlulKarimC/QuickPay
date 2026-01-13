@@ -79,9 +79,9 @@ RATE_LIMIT_MAX_API_REQUESTS=1000
 ```
 
 ### 0.5 Verification
-- [ ] `npm install` completes without errors
-- [ ] `npm run dev` starts all services
-- [ ] No TypeScript errors on build
+- [x] `npm install` completes without errors
+- [x] `npm run dev` starts all services
+- [x] No TypeScript errors on build
 
 ---
 
@@ -96,14 +96,14 @@ npx prisma migrate reset --force  # Clears all data
 
 ### 1.2 Create New Schema
 Replace `packages/db/prisma/schema.prisma` with new models:
-- [ ] `User` - existing + new relations
-- [ ] `Merchant` - add `apiKey` field
-- [ ] `PaymentIntent` - core payment model
-- [ ] `Wallet` - user balance
-- [ ] `WalletTransaction` - transaction history
-- [ ] `p2pTransfer` - keep existing
-- [ ] `RateLimitEntry` - rate limit tracking
-- [ ] All required enums
+- [x] `User` - existing + new relations
+- [x] `Merchant` - add `apiKey` field
+- [x] `PaymentIntent` - core payment model
+- [x] `Wallet` - user balance
+- [x] `WalletTransaction` - transaction history
+- [x] `p2pTransfer` - keep existing
+- [x] `RateLimitEntry` - rate limit tracking
+- [x] All required enums
 
 ### 1.3 Run Migration
 ```bash
@@ -114,9 +114,9 @@ npx prisma generate
 
 ### 1.4 Create Seed Data
 Create `packages/db/prisma/seed.ts`:
-- [ ] 2 test users with wallets (balance: ₹10,000 each)
-- [ ] 1 test merchant with API key
-- [ ] Sample payment intents (various statuses)
+- [x] 2 test users with wallets (balance: ₹10,000 each)
+- [x] 1 test merchant with API key
+- [x] Sample payment intents (various statuses)
 
 Add to `packages/db/package.json`:
 ```json
@@ -128,9 +128,9 @@ Add to `packages/db/package.json`:
 Run: `npx prisma db seed`
 
 ### 1.5 Verification
-- [ ] `npx prisma studio` shows all new tables
-- [ ] Seed data populates correctly
-- [ ] TypeScript types generated (`@prisma/client`)
+- [x] `npx prisma studio` shows all new tables
+- [x] Seed data populates correctly
+- [x] TypeScript types generated (`@prisma/client`)
 
 ---
 

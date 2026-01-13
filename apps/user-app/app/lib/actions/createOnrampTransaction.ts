@@ -13,14 +13,21 @@ export async function createOnRampTransaction(provider: string, amount: number) 
         }
     }
     const token = (Math.random() * 1000).toString();
-    await prisma.onRampTransaction.create({
+    const merchant = await prisma.merchant.findFirst();
+    if (!merchant) {
+        return {
+            message: "Merchant not found"
+        }
+    }
+    await prisma.paymentIntent.create({
         data: {
-            provider,
-            status: "Processing",
-            startTime: new Date(),
-            token: token,
+            merchantId: merchant.id,
+            status: "processing", // lowercase enum
+            clientSecret: token,
+            amount: amount * 100,
             userId: Number(session?.user?.id),
-            amount: amount * 100
+            currency: "INR",
+            paymentMethod: "card" // Default to card for this mock
         }
     });
 

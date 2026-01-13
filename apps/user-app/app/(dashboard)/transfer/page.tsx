@@ -7,30 +7,29 @@ import { authOptions } from "../../lib/auth";
 
 async function getBalance() {
     const session = await getServerSession(authOptions);
-    const balance = await prisma.balance.findFirst({
+    const wallet = await prisma.wallet.findUnique({
         where: {
             userId: Number(session?.user?.id)
         }
     });
     return {
-        amount: balance?.amount || 0,
-        locked: balance?.locked || 0
+        amount: wallet?.balance || 0,
+        locked: 0
     }
 }
 
 async function getOnRampTransactions() {
     const session = await getServerSession(authOptions);
-    const txns = await prisma.onRampTransaction.findMany({
+    const txns = await prisma.paymentIntent.findMany({
         where: {
             userId: Number(session?.user?.id)
         }
     });
-    return txns.map((t: typeof txns[number], index: number) => ({
-        key: index,
-        time: t.startTime,
+    return txns.map((t) => ({
+        time: t.createdAt,
         amount: t.amount,
-        status: t.status,
-        provider: t.provider
+        status: t.status, // PaymentStatus enum matches requirements mostly
+        provider: t.paymentMethod || 'Unknown'
     }))
 }
 
