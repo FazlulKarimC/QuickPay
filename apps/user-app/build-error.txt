@@ -1,0 +1,67 @@
+﻿Γû▓ Next.js 16.1.1 (Turbopack)
+
+  Creating an optimized production build ...
+node.exe : 
+At line:1 char:1
++ & "C:\Program Files\nodejs/node.exe" 
+"C:\Users\FAZLUL\AppData\Roaming ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecifi 
+   ed: (:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeComm 
+   andError
+ 
+> Build error occurred
+Error: Turbopack build failed with 1 
+errors:
+./apps/user-app/app/globals.css
+Error evaluating Node.js code
+Error: It looks like you're trying to 
+use `tailwindcss` directly as a PostCSS 
+plugin. The PostCSS plugin has moved to 
+a separate package, so to continue using 
+Tailwind CSS with PostCSS you'll need to 
+install `@tailwindcss/postcss` and 
+update your PostCSS configuration.
+    [at lt (C:\Users\FAZLUL\Desktop\MainP
+roject\QuickPay\node_modules\tailwindcss\
+dist\lib.js:38:1643)]
+    at turbopack:///[turbopack-node]/tran
+sforms/postcss.ts:56:14 [C:\Users\FAZLUL\
+Desktop\MainProject\QuickPay\apps\user-ap
+p\.next\build\chunks\[root-of-the-server]
+__1686b847._.js:165:20]
+    [at <anonymous>]
+    at Module.init (turbopack:///[turbopa
+ck-node]/transforms/postcss.ts:43:33) [C:
+\Users\FAZLUL\Desktop\MainProject\QuickPa
+y\apps\user-app\.next\build\chunks\[root-
+of-the-server]__1686b847._.js:155:35]
+    at run (turbopack:///[turbopack-node]
+/ipc/evaluate.ts:77:20) [C:\Users\FAZLUL\
+Desktop\MainProject\QuickPay\apps\user-ap
+p\.next\build\chunks\[root-of-the-server]
+__34335a6b._.js:429:26]
+    [at 
+process.processTicksAndRejections (node:i
+nternal/process/task_queues:105:5)]
+
+Import trace:
+  Client Component Browser:
+    ./apps/user-app/app/globals.css 
+[Client Component Browser]
+    ./apps/user-app/app/layout.tsx 
+[Server Component]
+
+
+    at Module.init (turbopack:///[turbopa
+ck-node]/transforms/postcss.ts:43:33) [C:
+\Users\FAZLUL\Desktop\MainProject\QuickPa
+y\apps\user-app\.next\build\chunks\[root-
+of-the-server]__1686b847._.js:155:35])
+    at run (turbopack:///[turbopack-node]
+/ipc/evaluate.ts:77:20) [C:\Users\FAZLUL\
+Desktop\MainProject\QuickPay\apps\user-ap
+p\.next\build\chunks\[root-of-the-server]
+__34335a6b._.js:429:26])

@@ -1,0 +1,143 @@
+﻿
+> build
+> turbo build
+
+node.exe : ΓÇó turbo 2.7.4
+At line:1 char:1
++ & "C:\Program Files\nodejs/node.exe" 
+"C:\Users\FAZLUL\AppData\Roaming ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecifi 
+   ed: (ΓÇó turbo 2.7.4:String) [], Rem  
+  oteException
+    + FullyQualifiedErrorId : NativeComm 
+   andError
+ 
+ΓÇó Packages in scope: @repo/db, @repo/eslint-config, @repo/store, @repo/typescript-config, @repo/ui, bank-simulator, bank-webhook, user-app
+ΓÇó Running build in 8 packages
+ΓÇó Remote caching disabled
+bank-simulator:build: cache hit, replaying logs d1aa111b3db22a39
+bank-simulator:build: 
+bank-simulator:build: > bank-simulator@1.0.0 build
+bank-simulator:build: > npx esbuild ./src/index.ts --bundle --platform=node --outfile=dist/index.js
+bank-simulator:build: 
+bank-simulator:build: 
+bank-simulator:build:   dist\index.js  1.1mb
+bank-simulator:build: 
+bank-simulator:build: Done in 78ms
+bank-webhook:build: cache miss, executing 0ce052e1b6713f34
+user-app:build: cache miss, executing 2dba2c25adc1f10f
+user-app:build: 
+user-app:build: > user-app@1.0.0 build
+user-app:build: > next build
+user-app:build: 
+bank-webhook:build: 
+bank-webhook:build: > bank-webhook@1.0.0 build
+bank-webhook:build: > next build
+bank-webhook:build: 
+bank-webhook:build: Γû▓ Next.js 16.1.1 (Turbopack)
+bank-webhook:build: 
+user-app:build: Γû▓ Next.js 16.1.1 (Turbopack)
+user-app:build: 
+bank-webhook:build:   Creating an optimized production build ...
+user-app:build:   Creating an optimized production build ...
+bank-webhook:build: Error: Can't resolve 'tw-animate-css' in 'C:\Users\FAZLUL\Desktop\MainProject\QuickPay\apps\merchant-app\app'
+bank-webhook:build:     [2m[at finishWithoutResolve (C:\Users\FAZLUL\Desktop\MainProject\QuickPay\node_modules\enhanced-resolve\lib\Resolver.js:565:18)][0m
+bank-webhook:build:     [2m[at C:\Users\FAZLUL\Desktop\MainProject\QuickPay\node_modules\enhanced-resolve\lib\Resolver.js:657:14][0m
+bank-webhook:build:     [2m[at C:\Users\FAZLUL\Desktop\MainProject\QuickPay\node_modules\enhanced-resolve\lib\Resolver.js:718:5][0m
+bank-webhook:build:     [2m[at eval (eval at create (C:\Users\FAZLUL\Desktop\MainProject\QuickPay\node_modules\tapable\lib\HookCodeFactory.js:33:10), <anonymous>:15:1)][0m
+bank-webhook:build:     [2m[at C:\Users\FAZLUL\Desktop\MainProject\QuickPay\node_modules\enhanced-resolve\lib\Resolver.js:718:5][0m
+bank-webhook:build:     [2m[at eval (eval at create (C:\Users\FAZLUL\Desktop\MainProject\QuickPay\node_modules\tapable\lib\HookCodeFactory.js:33:10), <anonymous>:27:1)][0m
+bank-webhook:build:     [2m[at C:\Users\FAZLUL\Desktop\MainProject\QuickPay\node_modules\enhanced-resolve\lib\DescriptionFilePlugin.js:89:43][0m
+bank-webhook:build:     [2m[at C:\Users\FAZLUL\Desktop\MainProject\QuickPay\node_modules\enhanced-resolve\lib\Resolver.js:718:5][0m
+bank-webhook:build:     [2m[at eval (eval at create (C:\Users\FAZLUL\Desktop\MainProject\QuickPay\node_modules\tapable\lib\HookCodeFactory.js:33:10), <anonymous>:15:1)][0m
+bank-webhook:build:     [2m[at C:\Users\FAZLUL\Desktop\MainProject\QuickPay\node_modules\enhanced-resolve\lib\Resolver.js:718:5][0m {
+bank-webhook:build:   details: "resolve 'tw-animate-css' in 'C:\\Users\\FAZLUL\\Desktop\\MainProject\\QuickPay\\apps\\merchant-app\\app'\n" +
+bank-webhook:build:     '  Parsed request is a module\n' +
+bank-webhook:build:     '  using description file: C:\\Users\\FAZLUL\\Desktop\\MainProject\\QuickPay\\apps\\merchant-app\\package.json (relative path: ./app)\n' +
+bank-webhook:build:     '    resolve as module\n' +
+bank-webhook:build:     "      C:\\Users\\FAZLUL\\Desktop\\MainProject\\QuickPay\\apps\\merchant-app\\app\\node_modules doesn't exist or is not a directory\n" +
+bank-webhook:build:     '      looking for modules in C:\\Users\\FAZLUL\\Desktop\\MainProject\\QuickPay\\apps\\merchant-app\\node_modules\n' +
+bank-webhook:build:     '        single file module\n' +
+bank-webhook:build:     '          using description file: C:\\Users\\FAZLUL\\Desktop\\MainProject\\QuickPay\\apps\\merchant-app\\package.json (relative path: ./node_modules/tw-animate-css)\n' +
+bank-webhook:build:     '            no extension\n' +
+bank-webhook:build:     "              C:\\Users\\FAZLUL\\Desktop\\MainProject\\QuickPay\\apps\\merchant-app\\node_modules\\tw-animate-css doesn't exist\n" +
+bank-webhook:build:     '            .css\n' +
+bank-webhook:build:     "              C:\\Users\\FAZLUL\\Desktop\\MainProject\\QuickPay\\apps\\merchant-app\\node_modules\\tw-animate-css.css doesn't exist\n" +
+bank-webhook:build:     "        C:\\Users\\FAZLUL\\Desktop\\MainProject\\QuickPay\\apps\\merchant-app\\node_modules\\tw-animate-css doesn't exist\n" +
+bank-webhook:build:     "      C:\\Users\\FAZLUL\\Desktop\\MainProject\\QuickPay\\apps\\node_modules doesn't exist or is not a directory\n" +
+bank-webhook:build:     '      looking for modules in C:\\Users\\FAZLUL\\Desktop\\MainProject\\QuickPay\\node_modules\n' +
+bank-webhook:build:     '        single file module\n' +
+bank-webhook:build:     '          using description file: C:\\Users\\FAZLUL\\Desktop\\MainProject\\QuickPay\\package.json (relative path: ./node_modules/tw-animate-css)\n' +
+bank-webhook:build:     '            no extension\n' +
+bank-webhook:build:     "              C:\\Users\\FAZLUL\\Desktop\\MainProject\\QuickPay\\node_modules\\tw-animate-css doesn't exist\n" +
+bank-webhook:build:     '            .css\n' +
+bank-webhook:build:     "              C:\\Users\\FAZLUL\\Desktop\\MainProject\\QuickPay\\node_modules\\tw-animate-css.css doesn't exist\n" +
+bank-webhook:build:     "        C:\\Users\\FAZLUL\\Desktop\\MainProject\\QuickPay\\node_modules\\tw-animate-css doesn't exist\n" +
+bank-webhook:build:     "      C:\\Users\\FAZLUL\\Desktop\\MainProject\\node_modules doesn't exist or is not a directory\n" +
+bank-webhook:build:     "      C:\\Users\\FAZLUL\\Desktop\\node_modules doesn't exist or is not a directory\n" +
+bank-webhook:build:     "      C:\\Users\\FAZLUL\\node_modules doesn't exist or is not a directory\n" +
+bank-webhook:build:     "      C:\\Users\\node_modules doesn't exist or is not a directory\n" +
+bank-webhook:build:     "      C:\\node_modules doesn't exist or is not a directory"
+bank-webhook:build: }
+bank-webhook:build: 
+bank-webhook:build: > Build error occurred
+bank-webhook:build: Error: Turbopack build failed with 2 errors:
+bank-webhook:build: ./apps/merchant-app/app/globals.css
+bank-webhook:build: Error evaluating Node.js code
+bank-webhook:build: CssSyntaxError: tailwindcss: C:\Users\FAZLUL\Desktop\MainProject\QuickPay\apps\merchant-app\app\globals.css:1:1: Can't resolve 'tw-animate-css' in 'C:\Users\FAZLUL\Desktop\MainProject\QuickPay\apps\merchant-app\app'
+bank-webhook:build:     at Input.error (apps/merchant-app/node_modules/postcss/lib/input.js:135:16) [C:\Users\FAZLUL\Desktop\MainProject\QuickPay\apps\merchant-app\.next\build\chunks\_85769b08._.js:4651:22]
+bank-webhook:build:     at Root.error (apps/merchant-app/node_modules/postcss/lib/node.js:146:32) [C:\Users\FAZLUL\Desktop\MainProject\QuickPay\apps\merchant-app\.next\build\chunks\_85769b08._.js:928:38]
+bank-webhook:build:     [at Object.Once (C:\Users\FAZLUL\Desktop\MainProject\QuickPay\node_modules\@tailwindcss\postcss\dist\index.js:10:6911)]
+bank-webhook:build:     [at process.processTicksAndRejections (node:internal/process/task_queues:105:5)]
+bank-webhook:build:     at async LazyResult.runAsync (apps/merchant-app/node_modules/postcss/lib/lazy-result.js:293:11) [C:\Users\FAZLUL\Desktop\MainProject\QuickPay\apps\merchant-app\.next\build\chunks\_85769b08._.js:6206:21]
+bank-webhook:build:     at async transform (turbopack:///[turbopack-node]/transforms/postcss.ts:70:34) [C:\Users\FAZLUL\Desktop\MainProject\QuickPay\apps\merchant-app\.next\build\chunks\[root-of-the-server]__fe4dae45._.js:172:36]
+bank-webhook:build:     at async run (turbopack:///[turbopack-node]/ipc/evaluate.ts:92:23) [C:\Users\FAZLUL\Desktop\MainProject\QuickPay\apps\merchant-app\.next\build\chunks\[root-of-the-server]__f78bd983._.js:443:31]
+bank-webhook:build: 
+bank-webhook:build: Import trace:
+bank-webhook:build:   Client Component Browser:
+bank-webhook:build:     ./apps/merchant-app/app/globals.css [Client Component Browser]
+bank-webhook:build:     ./apps/merchant-app/app/layout.tsx [Server Component]
+bank-webhook:build: 
+bank-webhook:build: 
+bank-webhook:build: ./apps/merchant-app/app/api/user/route.ts:2:1
+bank-webhook:build: Export PrismaClient doesn't exist in target module
+bank-webhook:build: [0m [90m 1 |[39m [36mimport[39m { [33mNextResponse[39m } [36mfrom[39m [32m"next/server"[39m
+bank-webhook:build: [31m[1m>[22m[39m[90m 2 |[39m [36mimport[39m { [33mPrismaClient[39m } [36mfrom[39m [32m"@repo/db/client"[39m[33m;[39m
+bank-webhook:build:  [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+bank-webhook:build:  [90m 3 |[39m
+bank-webhook:build:  [90m 4 |[39m [36mconst[39m client [33m=[39m [36mnew[39m [33mPrismaClient[39m()[33m;[39m
+bank-webhook:build:  [90m 5 |[39m[0m
+bank-webhook:build: 
+bank-webhook:build: The export PrismaClient was not found in module [project]/packages/db/index.ts [app-route] (ecmascript).
+bank-webhook:build: Did you mean to import default?
+bank-webhook:build: All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+bank-webhook:build: 
+bank-webhook:build: 
+bank-webhook:build:     at async transform (turbopack:///[turbopack-node]/transforms/postcss.ts:70:34) [C:\Users\FAZLUL\Desktop\MainProject\QuickPay\apps\merchant-app\.next\build\chunks\[root-of-the-server]__fe4dae45._.js:172:36])
+bank-webhook:build:     at async run (turbopack:///[turbopack-node]/ipc/evaluate.ts:92:23) [C:\Users\FAZLUL\Desktop\MainProject\QuickPay\apps\merchant-app\.next\build\chunks\[root-of-the-server]__f78bd983._.js:443:31])
+bank-webhook:build:     at <unknown> (./apps/merchant-app/app/api/user/route.ts:2:1)
+bank-webhook:build: npm error Lifecycle script `build` failed with error:
+bank-webhook:build: npm error code 1
+bank-webhook:build: npm error path C:\Users\FAZLUL\Desktop\MainProject\QuickPay\apps\merchant-app
+bank-webhook:build: npm error workspace bank-webhook@1.0.0
+bank-webhook:build: npm error location C:\Users\FAZLUL\Desktop\MainProject\QuickPay\apps\merchant-app
+bank-webhook:build: npm error command failed
+bank-webhook:build: npm error command C:\WINDOWS\system32\cmd.exe /d /s /c next build
+bank-webhook:build: ERROR: command 
+finished with error: command (C:\Users\FA
+ZLUL\Desktop\MainProject\QuickPay\apps\me
+rchant-app) C:\Program 
+Files\nodejs\npm.cmd run build exited (1)
+bank-webhook#build: command (C:\Users\FAZ
+LUL\Desktop\MainProject\QuickPay\apps\mer
+chant-app) C:\Program 
+Files\nodejs\npm.cmd run build exited (1)
+
+ Tasks:    1 successful, 3 total
+Cached:    1 cached, 3 total
+  Time:    8.478s 
+Failed:    bank-webhook#build
+
+ ERROR  run failed: command  exited (1)

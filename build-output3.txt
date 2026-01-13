@@ -1,0 +1,93 @@
+﻿
+> build
+> turbo build
+
+node.exe : ΓÇó turbo 2.7.4
+At line:1 char:1
++ & "C:\Program Files\nodejs/node.exe" 
+"C:\Users\FAZLUL\AppData\Roaming ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecifi 
+   ed: (ΓÇó turbo 2.7.4:String) [], Rem  
+  oteException
+    + FullyQualifiedErrorId : NativeComm 
+   andError
+ 
+ΓÇó Packages in scope: @repo/db, @repo/eslint-config, @repo/store, @repo/typescript-config, @repo/ui, bank-simulator, merchant-app, user-app
+ΓÇó Running build in 8 packages
+ΓÇó Remote caching disabled
+bank-simulator:build: cache hit, replaying logs 8f742c2cefcc9ffd
+user-app:build: cache miss, executing 46f638e3f924e75c
+merchant-app:build: cache miss, executing 75614dcf3981de06
+bank-simulator:build: 
+bank-simulator:build: > bank-simulator@1.0.0 build
+bank-simulator:build: > npx esbuild ./src/index.ts --bundle --platform=node --outfile=dist/index.js
+bank-simulator:build: 
+bank-simulator:build: 
+bank-simulator:build:   dist\index.js  1.1mb
+bank-simulator:build: 
+bank-simulator:build: Done in 94ms
+merchant-app:build: 
+merchant-app:build: > merchant-app@1.0.0 build
+merchant-app:build: > next build
+merchant-app:build: 
+user-app:build: 
+user-app:build: > user-app@1.0.0 build
+user-app:build: > next build
+user-app:build: 
+merchant-app:build: Γû▓ Next.js 16.1.1 (Turbopack)
+merchant-app:build: 
+user-app:build: Γû▓ Next.js 16.1.1 (Turbopack)
+user-app:build: 
+merchant-app:build:   Creating an optimized production build ...
+user-app:build:   Creating an optimized production build ...
+merchant-app:build: Γ£ô Compiled successfully in 4.7s
+merchant-app:build:   Running TypeScript ...
+user-app:build: Γ£ô Compiled successfully in 4.8s
+user-app:build:   Running TypeScript ...
+merchant-app:build: Failed to compile.
+merchant-app:build: 
+merchant-app:build: ./app/api/auth/[...nextauth]/route.ts:4:26
+merchant-app:build: Type error: Argument of type '{ providers: OAuthConfig<GoogleProfile>[]; callbacks: { signIn({ user, account }: { user: { email: string; name: string; }; account: { provider: "google" | "github"; }; }): Promise<...>; }; secret: string; }' is not assignable to parameter of type 'AuthOptions'.
+merchant-app:build:   The types of 'callbacks.signIn' are incompatible between these types.
+merchant-app:build:     Type '({ user, account }: { user: { email: string; name: string; }; account: { provider: "google" | "github"; }; }) => Promise<boolean>' is not assignable to type '(params: { user: User | AdapterUser; account: Account | null; profile?: Profile | undefined; email?: { verificationRequest?: boolean | undefined; } | undefined; credentials?: Record<...> | undefined; }) => Awaitable<...>'.
+merchant-app:build:       Types of parameters '__0' and 'params' are incompatible.
+merchant-app:build:         Type '{ user: User | AdapterUser; account: Account | null; profile?: Profile | undefined; email?: { verificationRequest?: boolean | undefined; } | undefined; credentials?: Record<...> | undefined; }' is not assignable to type '{ user: { email: string; name: string; }; account: { provider: "google" | "github"; }; }'.
+merchant-app:build:           Types of property 'user' are incompatible.
+merchant-app:build:             Type 'User | AdapterUser' is not assignable to type '{ email: string; name: string; }'.
+merchant-app:build:               Type 'User' is not assignable to type '{ email: string; name: string; }'.
+merchant-app:build:                 Types of property 'email' are incompatible.
+merchant-app:build:                   Type 'string | null | undefined' is not assignable to type 'string'.
+merchant-app:build:                     Type 'undefined' is not assignable to type 'string'.
+merchant-app:build: 
+merchant-app:build: [0m [90m 2 |[39m [36mimport[39m { authOptions } [36mfrom[39m [32m"../../../../lib/auth"[39m
+merchant-app:build:  [90m 3 |[39m
+merchant-app:build: [31m[1m>[22m[39m[90m 4 |[39m [36mconst[39m handler [33m=[39m [33mNextAuth[39m(authOptions)
+merchant-app:build:  [90m   |[39m                          [31m[1m^[22m[39m
+merchant-app:build:  [90m 5 |[39m
+merchant-app:build:  [90m 6 |[39m [36mexport[39m { handler [36mas[39m [33mGET[39m[33m,[39m handler [36mas[39m [33mPOST[39m }[0m
+merchant-app:build: Next.js build worker exited with code: 1 and signal: null
+merchant-app:build: npm error Lifecycle script `build` failed with error:
+merchant-app:build: npm error code 1
+merchant-app:build: npm error path C:\Users\FAZLUL\Desktop\MainProject\QuickPay\apps\merchant-app
+merchant-app:build: npm error workspace merchant-app@1.0.0
+merchant-app:build: npm error location C:\Users\FAZLUL\Desktop\MainProject\QuickPay\apps\merchant-app
+merchant-app:build: npm error command failed
+merchant-app:build: npm error command C:\WINDOWS\system32\cmd.exe /d /s /c next build
+merchant-app:build: ERROR: command 
+finished with error: command (C:\Users\FA
+ZLUL\Desktop\MainProject\QuickPay\apps\me
+rchant-app) C:\Program 
+Files\nodejs\npm.cmd run build exited (1)
+merchant-app#build: command (C:\Users\FAZ
+LUL\Desktop\MainProject\QuickPay\apps\mer
+chant-app) C:\Program 
+Files\nodejs\npm.cmd run build exited (1)
+
+ Tasks:    1 successful, 3 total
+Cached:    1 cached, 3 total
+  Time:    15.753s 
+Failed:    merchant-app#build
+
+ ERROR  run failed: command  exited (1)

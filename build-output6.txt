@@ -1,0 +1,102 @@
+﻿
+> build
+> turbo build
+
+node.exe : ΓÇó turbo 2.7.4
+At line:1 char:1
++ & "C:\Program Files\nodejs/node.exe" 
+"C:\Users\FAZLUL\AppData\Roaming ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecifi 
+   ed: (ΓÇó turbo 2.7.4:String) [], Rem  
+  oteException
+    + FullyQualifiedErrorId : NativeComm 
+   andError
+ 
+ΓÇó Packages in scope: @repo/db, @repo/eslint-config, @repo/store, @repo/typescript-config, @repo/ui, bank-simulator, merchant-app, user-app
+ΓÇó Running build in 8 packages
+ΓÇó Remote caching disabled
+bank-simulator:build: cache hit, replaying logs 8f742c2cefcc9ffd
+bank-simulator:build: 
+bank-simulator:build: > bank-simulator@1.0.0 build
+bank-simulator:build: > npx esbuild ./src/index.ts --bundle --platform=node --outfile=dist/index.js
+bank-simulator:build: 
+bank-simulator:build: 
+bank-simulator:build:   dist\index.js  1.1mb
+bank-simulator:build: 
+bank-simulator:build: Done in 94ms
+merchant-app:build: cache miss, executing fb7c9085e5e03a59
+user-app:build: cache miss, executing e7d3672bfd7dedbe
+merchant-app:build: 
+merchant-app:build: > merchant-app@1.0.0 build
+merchant-app:build: > next build
+merchant-app:build: 
+user-app:build: 
+user-app:build: > user-app@1.0.0 build
+user-app:build: > next build
+user-app:build: 
+merchant-app:build: Γû▓ Next.js 16.1.1 (Turbopack)
+merchant-app:build: 
+user-app:build: Γû▓ Next.js 16.1.1 (Turbopack)
+user-app:build: 
+merchant-app:build:   Creating an optimized production build ...
+user-app:build:   Creating an optimized production build ...
+merchant-app:build: Γ£ô Compiled successfully in 5.0s
+merchant-app:build:   Running TypeScript ...
+user-app:build: Γ£ô Compiled successfully in 5.4s
+user-app:build:   Running TypeScript ...
+merchant-app:build:   Collecting page data using 11 workers ...
+merchant-app:build: Error: @prisma/client did not initialize yet. Please run "prisma generate" and try to import it again.
+merchant-app:build: In case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report
+merchant-app:build:     at module evaluation (C:\Users\FAZLUL\Desktop\MainProject\QuickPay\apps\merchant-app\.next\server\chunks\[root-of-the-server]__1603d44f._.js:1:1232)
+merchant-app:build:     at instantiateModule (C:\Users\FAZLUL\Desktop\MainProject\QuickPay\apps\merchant-app\.next\server\chunks\[turbopack]_runtime.js:740:9)
+merchant-app:build:     at getOrInstantiateModuleFromParent (C:\Users\FAZLUL\Desktop\MainProject\QuickPay\apps\merchant-app\.next\server\chunks\[turbopack]_runtime.js:763:12)
+merchant-app:build:     at Context.esmImport [as i] (C:\Users\FAZLUL\Desktop\MainProject\QuickPay\apps\merchant-app\.next\server\chunks\[turbopack]_runtime.js:228:20)
+merchant-app:build:     at module evaluation (C:\Users\FAZLUL\Desktop\MainProject\QuickPay\apps\merchant-app\.next\server\chunks\[root-of-the-server]__e4782f91._.js:34:45627)
+merchant-app:build:     at instantiateModule (C:\Users\FAZLUL\Desktop\MainProject\QuickPay\apps\merchant-app\.next\server\chunks\[turbopack]_runtime.js:740:9)
+merchant-app:build:     at instantiateRuntimeModule (C:\Users\FAZLUL\Desktop\MainProject\QuickPay\apps\merchant-app\.next\server\chunks\[turbopack]_runtime.js:768:12)
+merchant-app:build:     at getOrInstantiateRuntimeModule (C:\Users\FAZLUL\Desktop\MainProject\QuickPay\apps\merchant-app\.next\server\chunks\[turbopack]_runtime.js:781:12)
+merchant-app:build:     at Object.m (C:\Users\FAZLUL\Desktop\MainProject\QuickPay\apps\merchant-app\.next\server\chunks\[turbopack]_runtime.js:790:18)
+merchant-app:build: 
+merchant-app:build: > Build error occurred
+merchant-app:build: Error: Failed to collect page data for /api/auth/[...nextauth]
+merchant-app:build:     at ignore-listed frames {
+merchant-app:build:   type: 'Error'
+merchant-app:build: }
+user-app:build: Failed to compile.
+user-app:build: 
+user-app:build: ./app/(dashboard)/transfer/page.tsx:28:22
+user-app:build: Type error: Parameter 't' implicitly has an 'any' type.
+user-app:build: 
+user-app:build: [0m [90m 26 |[39m         }
+user-app:build:  [90m 27 |[39m     })[33m;[39m
+user-app:build: [31m[1m>[22m[39m[90m 28 |[39m     [36mreturn[39m txns[33m.[39mmap((t[33m,[39m index) [33m=>[39m ({
+user-app:build:  [90m    |[39m                      [31m[1m^[22m[39m
+user-app:build:  [90m 29 |[39m         key[33m:[39m index[33m,[39m
+user-app:build:  [90m 30 |[39m         time[33m:[39m t[33m.[39mstartTime[33m,[39m
+user-app:build:  [90m 31 |[39m         amount[33m:[39m t[33m.[39mamount[33m,[39m[0m
+merchant-app:build: npm error Lifecycle script `build` failed with error:
+merchant-app:build: npm error code 1
+merchant-app:build: npm error path C:\Users\FAZLUL\Desktop\MainProject\QuickPay\apps\merchant-app
+merchant-app:build: npm error workspace merchant-app@1.0.0
+merchant-app:build: npm error location C:\Users\FAZLUL\Desktop\MainProject\QuickPay\apps\merchant-app
+merchant-app:build: npm error command failed
+merchant-app:build: npm error command C:\WINDOWS\system32\cmd.exe /d /s /c next build
+user-app:build: Next.js build worker exited with code: 1 and signal: null
+merchant-app:build: ERROR: command 
+finished with error: command (C:\Users\FA
+ZLUL\Desktop\MainProject\QuickPay\apps\me
+rchant-app) C:\Program 
+Files\nodejs\npm.cmd run build exited (1)
+merchant-app#build: command (C:\Users\FAZ
+LUL\Desktop\MainProject\QuickPay\apps\mer
+chant-app) C:\Program 
+Files\nodejs\npm.cmd run build exited (1)
+
+ Tasks:    1 successful, 3 total
+Cached:    1 cached, 3 total
+  Time:    17.616s 
+Failed:    merchant-app#build
+
+ ERROR  run failed: command  exited (1)

@@ -25,7 +25,7 @@ async function getOnRampTransactions() {
             userId: Number(session?.user?.id)
         }
     });
-    return txns.map((t, index) => ({
+    return txns.map((t: typeof txns[number], index: number) => ({
         key: index,
         time: t.startTime,
         amount: t.amount,
@@ -34,7 +34,7 @@ async function getOnRampTransactions() {
     }))
 }
 
-export default async function() {
+export default async function () {
     const balance = await getBalance();
     const transactions = await getOnRampTransactions();
 

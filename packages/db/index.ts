@@ -12,4 +12,7 @@ const prisma: ReturnType<typeof prismaClientSingleton> = globalThis.prismaGlobal
 
 export default prisma
 
+// Re-export PrismaClient for backward compatibility
+export { PrismaClient } from '@prisma/client'
+
 if (process.env.NODE_ENV !== 'production') globalThis.prismaGlobal = prisma
