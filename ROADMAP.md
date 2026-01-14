@@ -197,51 +197,51 @@ curl -X POST http://localhost:3000/api/payment-intents \
 
 ### 3.1 Create Payment Intent
 **File**: `apps/user-app/app/api/payment-intents/route.ts` (POST)
-- [ ] Accept: `amount`, `currency`, `metadata`
-- [ ] Support `Idempotency-Key` header
-- [ ] Generate `clientSecret` for frontend
-- [ ] Return: `{ id, clientSecret, status, amount, currency, createdAt }`
+- [x] Accept: `amount`, `currency`, `metadata`
+- [x] Support `Idempotency-Key` header
+- [x] Generate `clientSecret` for frontend
+- [x] Return: `{ id, clientSecret, status, amount, currency, createdAt }`
 
 ### 3.2 List Payment Intents
 **File**: `apps/user-app/app/api/payment-intents/route.ts` (GET)
-- [ ] Filter by: `status`, `created` (date range), `limit`
-- [ ] Pagination with `starting_after` cursor
-- [ ] Return: `{ data: [...], hasMore }`
+- [x] Filter by: `status`, `created` (date range), `limit`
+- [x] Pagination with `starting_after` cursor
+- [x] Return: `{ data: [...], hasMore }`
 
 ### 3.3 Get Single Payment Intent
 **File**: `apps/user-app/app/api/payment-intents/[id]/route.ts` (GET)
-- [ ] Return full payment details
-- [ ] Include merchant info if applicable
+- [x] Return full payment details
+- [x] Include merchant info if applicable
 
 ### 3.4 Confirm Payment
 **File**: `apps/user-app/app/api/payment-intents/[id]/confirm/route.ts` (POST)
-- [ ] Accept: `paymentMethod` (card/upi/netbanking)
-- [ ] Validate current status is `created`
-- [ ] Update status to `processing`
-- [ ] Send request to Bank Simulator
-- [ ] Return updated payment intent
+- [x] Accept: `paymentMethod` (card/upi/netbanking)
+- [x] Validate current status is `created`
+- [x] Update status to `processing`
+- [x] Send request to Bank Simulator
+- [x] Return updated payment intent
 
 ### 3.5 Cancel Payment
 **File**: `apps/user-app/app/api/payment-intents/[id]/cancel/route.ts` (POST)
-- [ ] Validate current status is `created`
-- [ ] Update status to `canceled`
-- [ ] Return updated payment intent
+- [x] Validate current status is `created`
+- [x] Update status to `canceled`
+- [x] Return updated payment intent
 
 ### 3.6 Refund Payment
 **File**: `apps/user-app/app/api/payment-intents/[id]/refund/route.ts` (POST)
-- [ ] Validate current status is `succeeded`
-- [ ] Create reverse wallet transaction
-- [ ] Update status to `refunded`
-- [ ] Return updated payment intent
+- [x] Validate current status is `succeeded`
+- [x] Create reverse wallet transaction
+- [x] Update status to `refunded`
+- [x] Return updated payment intent
 
 ### 3.7 Payment Service
 **File**: `apps/user-app/app/lib/services/payment.ts`
-- [ ] `createPaymentIntent(data)`
-- [ ] `confirmPayment(id, method)`
-- [ ] `cancelPayment(id)`
-- [ ] `refundPayment(id)`
-- [ ] `getPaymentIntent(id)`
-- [ ] `listPaymentIntents(filters)`
+- [x] `createPaymentIntent(data)`
+- [x] `confirmPayment(id, method)`
+- [x] `cancelPayment(id)`
+- [x] `refundPayment(id)`
+- [x] `getPaymentIntent(id)`
+- [x] `listPaymentIntents(filters)`
 
 ### 3.8 Verification
 Test complete lifecycle:

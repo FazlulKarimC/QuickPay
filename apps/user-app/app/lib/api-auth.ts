@@ -5,7 +5,7 @@
 
 import db from '@repo/db/client';
 import type { Merchant } from '@repo/db/client';
-import { Errors, withErrorHandler } from './api-error';
+import { ApiError, Errors, withErrorHandler } from './api-error';
 
 /**
  * Parse API key from request headers
@@ -59,23 +59,32 @@ export type ApiHandler<T = unknown> = (
  * });
  */
 export function withApiAuth(
-    handler: ApiHandler<AuthenticatedContext>
-): (request: Request, context?: unknown) => Promise<Response> {
-    return withErrorHandler(async (request: Request) => {
-        const apiKey = parseApiKey(request);
+    handler: (request: Request, context: AuthenticatedContext & { params?: Promise<Record<string, string>> }) => Promise<Response>
+) {
+    return async (request: Request, routeContext?: { params?: Promise<Record<string, string>> }): Promise<Response> => {
+        try {
+            const apiKey = parseApiKey(request);
 
-        if (!apiKey) {
-            throw Errors.invalidApiKey();
+            if (!apiKey) {
+                throw Errors.invalidApiKey();
+            }
+
+            const merchant = await authenticateMerchant(apiKey);
+
+            if (!merchant) {
+                throw Errors.invalidApiKey();
+            }
+
+            return await handler(request, { merchant, params: routeContext?.params });
+        } catch (error) {
+            if (error instanceof ApiError) {
+                return error.toResponse();
+            }
+
+            console.error('Unhandled API error:', error);
+            return Errors.internal().toResponse();
         }
-
-        const merchant = await authenticateMerchant(apiKey);
-
-        if (!merchant) {
-            throw Errors.invalidApiKey();
-        }
-
-        return handler(request, { merchant });
-    });
+    };
 }
 
 /**
