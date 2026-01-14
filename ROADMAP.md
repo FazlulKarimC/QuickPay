@@ -139,35 +139,35 @@ Run: `npx prisma db seed`
 
 ### 2.1 Rate Limiting
 **File**: `apps/user-app/app/lib/rate-limit.ts`
-- [ ] Sliding window algorithm using `RateLimitEntry` table
-- [ ] `checkRateLimit(key: string, limit: number)` function
-- [ ] `cleanupOldEntries()` function
+- [x] Sliding window algorithm using `RateLimitEntry` table
+- [x] `checkRateLimit(key: string, limit: number)` function
+- [x] `cleanupOldEntries()` function
 
-**File**: `apps/user-app/middleware.ts`
-- [ ] Apply rate limit to `/api/*` routes
-- [ ] 100 requests/minute for public endpoints
-- [ ] 1000 requests/minute for authenticated API keys
-- [ ] Return `429 Too Many Requests` with `Retry-After` header
+**File**: `apps/user-app/proxy.ts` (renamed from middleware.ts for Next.js 16)
+- [x] Apply rate limit to `/api/*` routes
+- [x] 100 requests/minute for public endpoints
+- [x] 1000 requests/minute for authenticated API keys
+- [x] Return `429 Too Many Requests` with `Retry-After` header
 
 ### 2.2 Idempotency Keys
 **File**: `apps/user-app/app/lib/idempotency.ts`
-- [ ] Parse `Idempotency-Key` header
-- [ ] Check if payment intent with key exists
-- [ ] Return cached response if found
-- [ ] Store key on new payment creation
-- [ ] Key format: UUID v4
+- [x] Parse `Idempotency-Key` header
+- [x] Check if payment intent with key exists
+- [x] Return cached response if found
+- [x] Store key on new payment creation
+- [x] Key format: UUID v4
 
 ### 2.3 API Key Authentication
 **File**: `apps/user-app/app/lib/api-auth.ts`
-- [ ] Parse `X-API-Key` header
-- [ ] Lookup merchant by API key
-- [ ] Return merchant object or null
-- [ ] `withApiAuth()` wrapper for API routes
+- [x] Parse `X-API-Key` header
+- [x] Lookup merchant by API key
+- [x] Return merchant object or null
+- [x] `withApiAuth()` wrapper for API routes
 
 ### 2.4 Error Handling
 **File**: `apps/user-app/app/lib/api-error.ts`
-- [ ] Custom `ApiError` class
-- [ ] Standard error response format:
+- [x] Custom `ApiError` class
+- [x] Standard error response format:
 ```json
 {
   "error": {
@@ -188,6 +188,7 @@ curl -X POST http://localhost:3000/api/payment-intents \
   -H "Idempotency-Key: test-123" -d '{"amount": 1000}'
 # Same request should return same ID
 ```
+
 
 ---
 
