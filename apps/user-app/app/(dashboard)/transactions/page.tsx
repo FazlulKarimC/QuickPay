@@ -1,8 +1,5 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../lib/auth";
-import { getOnRampTransactions } from "../../lib/actions/createOnrampTransaction"; // Or similar existing action
-// Actually I should check where getTransactions comes from. In dashboard I used import { getTransactions } from "../../lib/services/wallet";
-// Let's use that one.
 import { getTransactions } from "../../lib/services/wallet";
 import { TransactionTable } from "@repo/ui/transaction-table";
 import { redirect } from "next/navigation";
@@ -14,20 +11,13 @@ export default async function TransactionsPage() {
     }
 
     const { data: transactions } = await getTransactions(Number(session.user.id), { limit: 20 });
-    // Map to table format if needed, but getTransactions should return PaymentIntentResponse-like or WalletTransaction
-    // Shared TransactionTable expects { id, amount, status, date ... }
 
-    // getTransactions in wallet.ts returns: type WalletTransactionResponse...
-    // Let's ensure compatibility.
-    // WalletTransaction: id, amount, status (Success/Failure/Processing), timestamp
-
-    // Adapter for the table:
+    // Adapter for the table - map wallet transactions to table format
     const tableData = transactions.map(t => ({
         id: t.id,
         amount: t.amount,
-        status: t.status.toLowerCase(), // 'Success' -> 'success'
-        status: t.status.toLowerCase(),
-        createdAt: t.timestamp,
+        status: t.type === 'credit' ? 'succeeded' : 'succeeded', // Wallet transactions are always completed
+        createdAt: t.createdAt,
         provider: t.type === 'credit' ? 'Received' : 'Sent'
     }));
 

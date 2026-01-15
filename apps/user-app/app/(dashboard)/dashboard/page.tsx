@@ -14,7 +14,7 @@ export default async function Dashboard() {
         redirect('/api/auth/signin');
     }
 
-    const balance = await getBalance(Number(session.user.id));
+    const { balance } = await getBalance(Number(session.user.id));
     const { data: transactions } = await getTransactions(Number(session.user.id), { limit: 5 });
 
     return (

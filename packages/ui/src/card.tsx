@@ -1,21 +1,27 @@
 "use client";
 import React from "react";
 
+export interface CardProps {
+  title?: string;
+  className?: string;
+  children?: React.ReactNode;
+}
+
 export function Card({
   title,
+  className = "",
   children,
-}: {
-  title: string;
-  children?: React.ReactNode;
-}): JSX.Element {
+}: CardProps): JSX.Element {
   return (
     <div
-      className="border p-6 bg-white rounded-xl bg-[#ededed]"
+      className={`border rounded-xl bg-white dark:bg-slate-900 dark:border-slate-800 ${className}`}
     >
-      <h1 className="text-xl border-b pb-2">
-        {title}
-      </h1>
-      <p>{children}</p>
+      {title && (
+        <h1 className="text-xl border-b pb-2 p-6 dark:border-slate-800">
+          {title}
+        </h1>
+      )}
+      <div className={title ? "" : ""}>{children}</div>
     </div>
   );
 }

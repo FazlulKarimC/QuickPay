@@ -17,7 +17,8 @@ const statusConfig: Record<string, StatusConfig> = {
 };
 
 export function StatusBadge({ status }: { status: string }) {
-    const config = statusConfig[status] || statusConfig.created;
+    const defaultConfig: StatusConfig = { variant: "neutral", icon: Circle, animate: false };
+    const config = statusConfig[status] ?? defaultConfig;
     const Icon = config.icon;
 
     // Map internal variants to Tailwind classes that use our CSS variables
