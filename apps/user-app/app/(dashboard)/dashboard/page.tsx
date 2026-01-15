@@ -18,7 +18,8 @@ export default async function Dashboard() {
     const { data: transactions } = await getTransactions(Number(session.user.id), { limit: 5 });
 
     return (
-        <div className="p-8 max-w-7xl mx-auto space-y-8 animate-in fade-in-50">
+        <div className="max-w-7xl mx-auto p-4 md:p-8 space-y-8 animate-in fade-in-50">
+            {/* Page Header */}
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
                     <h1 className="text-3xl font-bold text-slate-900 dark:text-white">
@@ -28,21 +29,22 @@ export default async function Dashboard() {
                         Here's what's happening with your wallet today.
                     </p>
                 </div>
-                <div className="text-sm text-slate-400 font-mono">
-                    User ID: {session.user.id}
+                <div className="text-sm text-slate-400 font-mono bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-lg">
+                    ID: {session.user.id}
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div className="md:col-span-2 space-y-8">
+            {/* Main Content Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
+                <div className="lg:col-span-2 space-y-6">
                     <WalletCard balance={balance} />
                     <QuickActions />
                     <TransactionList transactions={transactions} />
                 </div>
 
+                {/* Sidebar */}
                 <div className="space-y-6">
-                    {/* Sidebar / Promo area */}
-                    <div className="p-6 rounded-2xl bg-gradient-to-br from-indigo-50 to-blue-50 dark:from-slate-900 dark:to-slate-900/50 border border-indigo-100 dark:border-slate-800">
+                    <div className="p-6 rounded-2xl bg-linear-to-br from-indigo-50 to-blue-50 dark:from-slate-800 dark:to-slate-900 border border-indigo-100 dark:border-slate-700">
                         <h3 className="font-semibold text-indigo-900 dark:text-indigo-400 mb-2">Did you know?</h3>
                         <p className="text-sm text-indigo-700 dark:text-slate-400">
                             You can now use UPI for faster payments. Try it out in your next transaction!
