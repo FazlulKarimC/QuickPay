@@ -3,7 +3,12 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/ui/*": ["src/ui/*"] // Alias for ShadCN UI components
+      "@/ui/*": [
+        "src/ui/*"
+      ],
+      "@/*": [
+        "./*"
+      ]
     },
     "plugins": [
       {
@@ -18,5 +23,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }

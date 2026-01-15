@@ -94,6 +94,31 @@ export async function getPaymentIntent(
 }
 
 /**
+ * Get a single payment intent by ID (for public checkout)
+ */
+export async function getPaymentIntentById(
+    id: string
+): Promise<PaymentIntentResponse> {
+    const paymentIntent = await db.paymentIntent.findUnique({
+        where: { id },
+        include: { merchant: true }, // Include merchant details for header
+    });
+
+    if (!paymentIntent) {
+        throw Errors.notFound('Payment intent');
+    }
+
+    return {
+        ...toResponse(paymentIntent),
+        // @ts-ignore - Create a mapped type or extended interface if needed, but for now we inject merchant info
+        merchant: {
+            name: paymentIntent.merchant.name,
+            logo: null // DB doesn't have logo yet
+        }
+    };
+}
+
+/**
  * List payment intents with filters and pagination
  */
 export async function listPaymentIntents(

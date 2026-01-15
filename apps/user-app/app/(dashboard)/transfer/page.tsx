@@ -4,9 +4,13 @@ import { BalanceCard } from "../../../components/BalanceCard";
 import { OnRampTransactions } from "../../../components/OnRampTransactions";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../lib/auth";
+import { redirect } from "next/navigation";
 
 async function getBalance() {
     const session = await getServerSession(authOptions);
+    if (!session?.user?.id) {
+        redirect('/api/auth/signin');
+    }
     const wallet = await prisma.wallet.findUnique({
         where: {
             userId: Number(session?.user?.id)
@@ -23,7 +27,11 @@ async function getOnRampTransactions() {
     const txns = await prisma.paymentIntent.findMany({
         where: {
             userId: Number(session?.user?.id)
-        }
+        },
+        orderBy: {
+            createdAt: 'desc'
+        },
+        take: 10
     });
     return txns.map((t) => ({
         time: t.createdAt,
@@ -33,24 +41,25 @@ async function getOnRampTransactions() {
     }))
 }
 
-export default async function () {
+export default async function TransferPage() {
     const balance = await getBalance();
     const transactions = await getOnRampTransactions();
 
-    return <div className="w-screen h-[92vh] bg-gradient-to-br from-[#0F2027] via-[#203A43] to-[#2C5364] text-white">
-        <div className="text-4xl pl-4 pt-8 mb-8 font-bold items-center">
-            <div>Transfer</div>
-        </div>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 p-4">
-            <div>
-                <AddMoney />
-            </div>
-            <div>
-                <BalanceCard amount={balance.amount} locked={balance.locked} />
-                <div className="pt-4">
-                    <OnRampTransactions transactions={transactions} />
+    return (
+        <div className="max-w-7xl mx-auto p-4 md:p-8 space-y-8 animate-in fade-in-50">
+            <h1 className="text-3xl font-bold text-slate-900 dark:text-white">Transfer & Add Money</h1>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div className="space-y-8">
+                    <AddMoney />
+                </div>
+                <div className="space-y-8">
+                    <BalanceCard amount={balance.amount} locked={balance.locked} />
+                    <div className="pt-4">
+                        <OnRampTransactions transactions={transactions} />
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    );
 }

@@ -9,7 +9,13 @@
     "./appbar": "./src/Appbar.tsx",
     "./center": "./src/Center.tsx",
     "./select": "./src/Select.tsx",
-    "./textinput": "./src/TextInput.tsx"
+    "./textinput": "./src/TextInput.tsx",
+    "./status-badge": "./src/components/StatusBadge.tsx",
+    "./amount-display": "./src/components/AmountDisplay.tsx",
+    "./merchant-header": "./src/components/MerchantHeader.tsx",
+    "./payment-summary": "./src/components/PaymentSummary.tsx",
+    "./transaction-table": "./src/components/TransactionTable.tsx",
+    "./skeletons": "./src/skeletons/index.tsx"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
@@ -19,12 +25,15 @@
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
     "@turbo/gen": "^1.12.4",
-    "@types/node": "^20.11.24",
     "@types/eslint": "^8.56.5",
+    "@types/node": "^20.11.24",
     "@types/react": "^18.2.61",
     "@types/react-dom": "^18.2.19",
     "eslint": "^8.57.0",
     "react": "^18.2.0",
     "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "lucide-react": "^0.473.0"
   }
 }

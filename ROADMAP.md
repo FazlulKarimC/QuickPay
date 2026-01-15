@@ -356,117 +356,117 @@ await prisma.$transaction(async (tx) => {
 > 📚 **Reference**: [DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md) for colors, typography, and component styles
 
 ### 6.1 Setup
-- [ ] Install Inter font (Google Fonts)
-- [ ] Add CSS variables from design system to `globals.css`
-- [ ] Install `lucide-react` for icons
-- [ ] Create base component styles
+- [x] Install Inter font (Google Fonts)
+- [x] Add CSS variables from design system to `globals.css`
+- [x] Install `lucide-react` for icons
+- [x] Create base component styles
 
 ### 6.2 Shared UI Components (shadcn/ui + custom)
 **Location**: `packages/ui/src/` + `apps/*/components/`
 
 Payment-specific components (from DESIGN_SYSTEM.md):
-- [ ] `StatusBadge.tsx` - payment status with icon + animation
-- [ ] `AmountDisplay.tsx` - formatted currency display (sm/md/lg/xl)
-- [ ] `MerchantHeader.tsx` - logo + name + reference
-- [ ] `PaymentSummary.tsx` - label/value rows for checkout
-- [ ] `TransactionTable.tsx` - filterable table with hover states
+- [x] `StatusBadge.tsx` - payment status with icon + animation
+- [x] `AmountDisplay.tsx` - formatted currency display (sm/md/lg/xl)
+- [x] `MerchantHeader.tsx` - logo + name + reference
+- [x] `PaymentSummary.tsx` - label/value rows for checkout
+- [x] `TransactionTable.tsx` - filterable table with hover states
 
 Skeleton loaders:
-- [ ] `TransactionListSkeleton.tsx` - shimmer loading for transaction list
-- [ ] `DashboardCardSkeleton.tsx` - loading state for stats cards
-- [ ] `WalletBalanceSkeleton.tsx` - loading state for wallet
+- [x] `TransactionListSkeleton.tsx` - shimmer loading for transaction list
+- [x] `DashboardCardSkeleton.tsx` - loading state for stats cards
+- [x] `WalletBalanceSkeleton.tsx` - loading state for wallet
 
 Base shadcn/ui components (customized):
-- [ ] Button - primary, secondary, ghost, success, error variants
-- [ ] Card - base, glass variants
-- [ ] Input - styled with focus ring
-- [ ] Badge - using semantic color variables
-- [ ] Table - fintech styling with hover states
-- [ ] Tabs - for payment method selection
-- [ ] Dialog - for confirmations
-- [ ] Toast - notifications
+- [x] Button - primary, secondary, ghost, success, error variants
+- [x] Card - base, glass variants
+- [x] Input - styled with focus ring
+- [x] Badge - using semantic color variables
+- [x] Table - fintech styling with hover states
+- [x] Tabs - for payment method selection
+- [x] Dialog - for confirmations
+- [x] Toast - notifications
 
 ### 6.3 User App - Checkout Flow
 **Page**: `apps/user-app/app/checkout/[paymentIntentId]/page.tsx`
-- [ ] Glass-morphism card design
-- [ ] Payment amount display
-- [ ] Payment method tabs (Card/UPI/Netbanking)
-- [ ] Mock card form (number, expiry, CVV)
-- [ ] UPI ID input
-- [ ] Bank selector for netbanking
-- [ ] Confirm payment button
-- [ ] Loading state during processing
+- [x] Glass-morphism card design
+- [x] Payment amount display
+- [x] Payment method tabs (Card/UPI/Netbanking)
+- [x] Mock card form (number, expiry, CVV)
+- [x] UPI ID input
+- [x] Bank selector for netbanking
+- [x] Confirm payment button
+- [x] Loading state during processing
 
 **Page**: `apps/user-app/app/checkout/success/page.tsx`
-- [ ] Success animation (checkmark)
-- [ ] Confetti effect (optional)
-- [ ] Transaction details
-- [ ] "Back to Dashboard" button
+- [x] Success animation (checkmark)
+- [x] Confetti effect (optional)
+- [x] Transaction details
+- [x] "Back to Dashboard" button
 
 **Page**: `apps/user-app/app/checkout/failed/page.tsx`
-- [ ] Error animation (X mark)
-- [ ] Failure reason display
-- [ ] "Try Again" button
-- [ ] "Back to Dashboard" button
+- [x] Error animation (X mark)
+- [x] Failure reason display
+- [x] "Try Again" button
+- [x] "Back to Dashboard" button
 
 ### 6.4 User App - Dashboard Upgrade
 **Page**: `apps/user-app/app/(dashboard)/dashboard/page.tsx`
-- [ ] Wallet balance card with gradient
-- [ ] Quick action buttons (Send, Add Money, History)
-- [ ] Recent transactions list
-- [ ] Status badges for each transaction
+- [x] Wallet balance card with gradient
+- [x] Quick action buttons (Send, Add Money, History)
+- [x] Recent transactions list
+- [x] Status badges for each transaction
 
 **Components**:
-- [ ] `WalletCard.tsx` - balance display with gradient background
-- [ ] `QuickActions.tsx` - action button grid
-- [ ] `TransactionList.tsx` - list with status badges
-- [ ] `TransactionItem.tsx` - single transaction row
+- [x] `WalletCard.tsx` - balance display with gradient background
+- [x] `QuickActions.tsx` - action button grid
+- [x] `TransactionList.tsx` - list with status badges
+- [x] `TransactionItem.tsx` - single transaction row
 
 ### 6.5 User App - Existing Pages Polish
-- [ ] `/transfer` - update styling to match design system
-- [ ] `/p2p` - update styling to match design system
-- [ ] `/transactions` - add filters, better table design
-- [ ] Appbar - modern navigation with user avatar
+- [x] `/transfer` - update styling to match design system
+- [x] `/p2p` - update styling to match design system
+- [x] `/transactions` - add filters, better table design
+- [x] Appbar - modern navigation with user avatar
 
 ### 6.6 Merchant App - Dashboard
 **Page**: `apps/merchant-app/app/dashboard/page.tsx`
-- [ ] Stats cards: Total Revenue, Transaction Count, Success Rate
-- [ ] Line chart: Last 7 days revenue (simple CSS/SVG chart)
-- [ ] Recent transactions table
+- [x] Stats cards: Total Revenue, Transaction Count, Success Rate
+- [x] Line chart: Last 7 days revenue (simple CSS/SVG chart)
+- [x] Recent transactions table
 
 ### 6.7 Merchant App - Transactions
 **Page**: `apps/merchant-app/app/transactions/page.tsx`
-- [ ] Filterable transactions table
-- [ ] Date range picker
-- [ ] Status filter dropdown
-- [ ] Pagination
-- [ ] Export to CSV (optional)
+- [x] Filterable transactions table
+- [x] Date range picker
+- [x] Status filter dropdown
+- [x] Pagination
+- [x] Export to CSV (optional)
 
 ### 6.8 Merchant App - Settings
 **Page**: `apps/merchant-app/app/settings/page.tsx`
-- [ ] API key display (masked with reveal button)
-- [ ] Regenerate API key button
-- [ ] Webhook URL configuration
+- [x] API key display (masked with reveal button)
+- [x] Regenerate API key button
+- [x] Webhook URL configuration
 
 ### 6.9 Animations & Polish
-- [ ] Page transitions (fade in)
-- [ ] Button hover effects
-- [ ] Loading skeletons for async data
-- [ ] Toast notifications for actions
-- [ ] Focus states for accessibility
+- [x] Page transitions (fade in)
+- [x] Button hover effects
+- [x] Loading skeletons for async data
+- [x] Toast notifications for actions
+- [x] Focus states for accessibility
 
 ### 6.10 Responsive Design
-- [ ] Mobile-first layouts
-- [ ] Collapsible sidebar on mobile
-- [ ] Touch-friendly buttons
-- [ ] Horizontal scroll for tables on mobile
+- [x] Mobile-first layouts
+- [x] Collapsible sidebar on mobile
+- [x] Touch-friendly buttons
+- [x] Horizontal scroll for tables on mobile
 
 ### 6.11 Verification
-- [ ] All pages render without errors
-- [ ] Responsive on mobile/tablet/desktop
-- [ ] Animations are smooth (check for jank)
-- [ ] Accessibility: keyboard navigation works
-- [ ] Dark mode consistent across all pages
+- [x] All pages render without errors
+- [x] Responsive on mobile/tablet/desktop
+- [x] Animations are smooth (check for jank)
+- [x] Accessibility: keyboard navigation works
+- [x] Dark mode consistent across all pages
 
 ---
 
@@ -524,8 +524,8 @@ Base shadcn/ui components (customized):
 ### Ports
 | Service | Port |
 |---------|------|
-| User App | 3000 |
-| Merchant App | 3001 |
+| User App | 3002 |
+| Merchant App | 3004 |
 | Bank Simulator | 3003 |
 
 ### Key Files
