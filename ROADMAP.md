@@ -311,24 +311,24 @@ WEBHOOK_SECRET=your-webhook-secret
 
 ### 5.1 Wallet Service
 **File**: `apps/user-app/app/lib/services/wallet.ts`
-- [ ] `getOrCreateWallet(userId)` - auto-create if missing
-- [ ] `creditWallet(userId, amount, reference, description)`
-- [ ] `debitWallet(userId, amount, reference, description)` - throws if insufficient
-- [ ] `getBalance(userId)`
-- [ ] `getTransactions(userId, options)` - with pagination
+- [x] `getOrCreateWallet(userId)` - auto-create if missing
+- [x] `creditWallet(userId, amount, reference, description)`
+- [x] `debitWallet(userId, amount, reference, description)` - throws if insufficient
+- [x] `getBalance(userId)`
+- [x] `getTransactions(userId, options)` - with pagination
 
 ### 5.2 Wallet API
 **File**: `apps/user-app/app/api/wallet/route.ts`
-- [ ] `GET /api/wallet` - get balance + recent transactions
-- [ ] Return: `{ balance, recentTransactions: [...] }`
+- [x] `GET /api/wallet` - get balance + recent transactions
+- [x] Return: `{ balance, recentTransactions: [...] }`
 
 **File**: `apps/user-app/app/api/wallet/transactions/route.ts`
-- [ ] `GET /api/wallet/transactions` - full history with pagination
-- [ ] Filters: `type`, date range, `limit`
+- [x] `GET /api/wallet/transactions` - full history with pagination
+- [x] Filters: `type`, date range, `limit`
 
 ### 5.3 Integration Points
-- [ ] Credit wallet on payment success (via webhook)
-- [ ] Debit wallet on refund
+- [x] Credit wallet on payment success (via webhook)
+- [x] Debit wallet on refund
 - [ ] P2P transfers use wallet (update existing code)
 
 ### 5.4 Atomic Transactions
@@ -343,10 +343,10 @@ await prisma.$transaction(async (tx) => {
 ```
 
 ### 5.5 Verification
-- [ ] Balance updates in real-time after payment
-- [ ] Transaction history shows all credits/debits
-- [ ] Concurrent operations don't corrupt balance
-- [ ] Insufficient balance throws error
+- [x] Balance updates in real-time after payment
+- [x] Transaction history shows all credits/debits
+- [x] Concurrent operations don't corrupt balance
+- [x] Insufficient balance throws error
 
 ---
 
