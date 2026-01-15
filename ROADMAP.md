@@ -264,11 +264,11 @@ curl -X POST .../api/payment-intents/$PI_ID/refund
 
 ### 4.1 Process Endpoint
 **File**: `apps/bank-simulator/src/index.ts`
-- [ ] `POST /process` endpoint
-- [ ] Accept: `paymentIntentId`, `amount`, `method`, `callbackUrl`
-- [ ] Simulate processing delay (2-5 seconds random)
-- [ ] Random success/failure (80% success, configurable)
-- [ ] Call webhook on completion
+- [x] `POST /process` endpoint
+- [x] Accept: `paymentIntentId`, `amount`, `method`, `callbackUrl`
+- [x] Simulate processing delay (2-5 seconds random)
+- [x] Random success/failure (80% success, configurable)
+- [x] Call webhook on completion
 
 ### 4.2 Callback Payload
 ```typescript
@@ -283,11 +283,11 @@ curl -X POST .../api/payment-intents/$PI_ID/refund
 
 ### 4.3 Bank Webhook Handler
 **File**: `apps/user-app/app/api/webhooks/bank/route.ts`
-- [ ] Receive callback from bank simulator
-- [ ] Update PaymentIntent status
-- [ ] On success: credit user's wallet
-- [ ] On failure: update failureReason
-- [ ] Log all webhook events
+- [x] Receive callback from bank simulator
+- [x] Update PaymentIntent status
+- [x] On success: credit user's wallet
+- [x] On failure: update failureReason
+- [x] Log all webhook events
 
 ### 4.4 Configuration
 **File**: `apps/bank-simulator/.env`
@@ -299,10 +299,10 @@ WEBHOOK_SECRET=your-webhook-secret
 ```
 
 ### 4.5 Verification
-- [ ] Payment processing takes 2-5 seconds
-- [ ] ~80% success rate over 10 attempts
-- [ ] Webhook updates payment status correctly
-- [ ] Wallet credited on success
+- [x] Payment processing takes 2-5 seconds
+- [x] ~80% success rate over 10 attempts
+- [x] Webhook updates payment status correctly
+- [x] Wallet credited on success
 
 ---
 

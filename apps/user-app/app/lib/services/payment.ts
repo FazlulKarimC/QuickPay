@@ -147,6 +147,7 @@ export async function listPaymentIntents(
 /**
  * Confirm a payment intent
  * Transitions: created → processing
+ * Sends request to bank simulator for async processing
  */
 export async function confirmPayment(
     id: string,
@@ -175,6 +176,38 @@ export async function confirmPayment(
             paymentMethod,
         },
     });
+
+    // Send to bank simulator for async processing
+    const bankSimulatorUrl = process.env.BANK_SIMULATOR_URL;
+    const callbackUrl = `${process.env.NEXTAUTH_URL}/api/webhooks/bank`;
+
+    if (bankSimulatorUrl) {
+        try {
+            console.log(`[Payment] Sending payment ${id} to bank simulator`);
+            const response = await fetch(`${bankSimulatorUrl}/process`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    paymentIntentId: id,
+                    amount: paymentIntent.amount,
+                    method: paymentMethod,
+                    callbackUrl,
+                }),
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                console.log(`[Payment] Bank simulator acknowledged: ${JSON.stringify(result)}`);
+            } else {
+                console.error(`[Payment] Bank simulator error: ${response.status}`);
+            }
+        } catch (error) {
+            // Log error but don't block the response
+            console.error('[Payment] Failed to contact bank simulator:', error);
+        }
+    } else {
+        console.warn('[Payment] BANK_SIMULATOR_URL not configured');
+    }
 
     return toResponse(updated);
 }
