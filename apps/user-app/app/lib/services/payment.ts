@@ -203,35 +203,33 @@ export async function confirmPayment(
     });
 
     // Send to bank simulator for async processing
-    const bankSimulatorUrl = process.env.BANK_SIMULATOR_URL;
-    const callbackUrl = `${process.env.NEXTAUTH_URL}/api/webhooks/bank`;
+    // Using internal API route instead of external service
+    const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3002';
+    const bankSimulatorUrl = `${baseUrl}/api/bank-simulator/process`;
+    const callbackUrl = `${baseUrl}/api/webhooks/bank`;
 
-    if (bankSimulatorUrl) {
-        try {
-            console.log(`[Payment] Sending payment ${id} to bank simulator`);
-            const response = await fetch(`${bankSimulatorUrl}/process`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    paymentIntentId: id,
-                    amount: paymentIntent.amount,
-                    method: paymentMethod,
-                    callbackUrl,
-                }),
-            });
+    try {
+        console.log(`[Payment] Sending payment ${id} to bank simulator`);
+        const response = await fetch(bankSimulatorUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                paymentIntentId: id,
+                amount: paymentIntent.amount,
+                method: paymentMethod,
+                callbackUrl,
+            }),
+        });
 
-            if (response.ok) {
-                const result = await response.json();
-                console.log(`[Payment] Bank simulator acknowledged: ${JSON.stringify(result)}`);
-            } else {
-                console.error(`[Payment] Bank simulator error: ${response.status}`);
-            }
-        } catch (error) {
-            // Log error but don't block the response
-            console.error('[Payment] Failed to contact bank simulator:', error);
+        if (response.ok) {
+            const result = await response.json();
+            console.log(`[Payment] Bank simulator acknowledged: ${JSON.stringify(result)}`);
+        } else {
+            console.error(`[Payment] Bank simulator error: ${response.status}`);
         }
-    } else {
-        console.warn('[Payment] BANK_SIMULATOR_URL not configured');
+    } catch (error) {
+        // Log error but don't block the response
+        console.error('[Payment] Failed to contact bank simulator:', error);
     }
 
     return toResponse(updated);
