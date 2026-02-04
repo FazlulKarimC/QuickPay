@@ -38,7 +38,7 @@ export function DashboardCardSkeleton() {
 
 export function WalletBalanceSkeleton() {
     return (
-        <div className="p-8 rounded-2xl bg-gradient-to-br from-indigo-500 to-indigo-700 dark:from-indigo-600 dark:to-indigo-800">
+        <div className="p-8 rounded-2xl bg-linear-to-br from-indigo-500 to-indigo-700 dark:from-indigo-600 dark:to-indigo-800">
             <Skeleton className="h-4 w-20 mb-3 bg-white/20" />
             <Skeleton className="h-12 w-40 mb-4 bg-white/20" />
             <Skeleton className="h-3 w-32 bg-white/20" />

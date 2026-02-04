@@ -63,7 +63,7 @@ After running `npx prisma db seed`, the following test accounts are available:
 
 | Name | API Key |
 |------|---------|
-| Test Merchant | `test_api_key_123` |
+| Test Merchant | `test_api_key_123456789` |
 
 ---
 
@@ -102,7 +102,7 @@ Test the full payment flow: Create → Confirm → Succeed/Fail → Refund
 **Step 1: Create Payment Intent**
 ```powershell
 $headers = @{
-    "X-API-Key" = "test_api_key_123"
+    "X-API-Key" = "test_api_key_123456789"
     "Content-Type" = "application/json"
 }
 
@@ -208,7 +208,7 @@ Test duplicate payment prevention:
 $idempotencyKey = [guid]::NewGuid().ToString()
 
 $headers = @{
-    "X-API-Key" = "test_api_key_123"
+    "X-API-Key" = "test_api_key_123456789"
     "Content-Type" = "application/json"
     "Idempotency-Key" = $idempotencyKey
 }
@@ -235,7 +235,7 @@ Write-Host "Second ID: $($response2.id)"
 
 ```powershell
 $headers = @{
-    "X-API-Key" = "test_api_key_123"
+    "X-API-Key" = "test_api_key_123456789"
     "Content-Type" = "application/json"
 }
 
@@ -306,7 +306,7 @@ Stop-Process -Id <process_id>
 ```
 
 **Solution:**
-1. Verify the API key is correct: `test_api_key_123`
+1. Verify the API key is correct: `test_api_key_123456789`
 2. Check header is spelled correctly: `X-API-Key`
 3. Ensure merchant exists in database: `npx prisma db seed`
 

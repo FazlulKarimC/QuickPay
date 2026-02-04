@@ -43,7 +43,13 @@ export function SendCard() {
                     <TextInput
                         placeholder="Enter amount"
                         label=""
-                        onChange={setAmount}
+                        type="number"
+                        onChange={(val) => {
+                            // Only allow positive numbers or empty string
+                            if (val === "" || (Number(val) > 0 && !isNaN(Number(val)))) {
+                                setAmount(val);
+                            }
+                        }}
                     />
                 </div>
 

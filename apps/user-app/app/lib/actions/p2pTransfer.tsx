@@ -3,14 +3,28 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../auth";
 import prisma from "@repo/db/client";
 
-export async function p2pTransfer(to: string, amount: number) {
+interface TransferResult {
+  success?: boolean;
+  message?: string;
+}
+
+export async function p2pTransfer(to: string, amount: number): Promise<TransferResult> {
   const session = await getServerSession(authOptions);
   const from = session?.user?.id;
+
   if (!from) {
     return {
       message: "Error while sending"
     }
   }
+
+  // Validate amount - must be a positive finite number
+  if (!Number.isFinite(amount) || amount <= 0) {
+    return {
+      message: "Invalid amount. Amount must be a positive number."
+    }
+  }
+
   const toUser = await prisma.user.findFirst({
     where: {
       number: to
@@ -22,33 +36,87 @@ export async function p2pTransfer(to: string, amount: number) {
       message: "User not found"
     }
   }
-  await prisma.$transaction(async (tx) => {
-    await tx.$queryRaw`SELECT * FROM "Wallet" WHERE "userId" = ${Number(from)} FOR UPDATE`;
 
-    const fromWallet = await tx.wallet.findUnique({
-      where: { userId: Number(from) },
+  // Prevent self-transfer
+  if (Number(from) === toUser.id) {
+    return {
+      message: "Cannot transfer to yourself"
+    }
+  }
+
+  try {
+    await prisma.$transaction(async (tx) => {
+      // Lock sender's wallet first (FOR UPDATE)
+      await tx.$queryRaw`SELECT * FROM "Wallet" WHERE "userId" = ${Number(from)} FOR UPDATE`;
+
+      // Lock recipient's wallet to prevent lost increments under concurrent transfers
+      await tx.$queryRaw`SELECT * FROM "Wallet" WHERE "userId" = ${toUser.id} FOR UPDATE`;
+
+      // Check sender's balance
+      const fromWallet = await tx.wallet.findUnique({
+        where: { userId: Number(from) },
+      });
+
+      if (!fromWallet) {
+        throw new Error('WALLET_NOT_FOUND');
+      }
+
+      if (fromWallet.balance < amount) {
+        throw new Error('INSUFFICIENT_FUNDS');
+      }
+
+      // Debit sender
+      await tx.wallet.update({
+        where: { userId: Number(from) },
+        data: { balance: { decrement: amount } },
+      });
+
+      // Credit recipient
+      await tx.wallet.update({
+        where: { userId: toUser.id },
+        data: { balance: { increment: amount } },
+      });
+
+      // Record the transfer
+      await tx.p2pTransfer.create({
+        data: {
+          fromUserId: Number(from),
+          toUserId: toUser.id,
+          amount,
+          timestamp: new Date()
+        }
+      });
     });
-    if (!fromWallet || fromWallet.balance < amount) {
-      throw new Error('Insufficient funds');
+
+    return {
+      success: true,
+      message: "Transfer successful"
+    };
+  } catch (error) {
+    // Handle specific error cases
+    if (error instanceof Error) {
+      if (error.message === 'INSUFFICIENT_FUNDS') {
+        return {
+          message: "Insufficient funds"
+        };
+      }
+      if (error.message === 'WALLET_NOT_FOUND') {
+        return {
+          message: "Wallet not found"
+        };
+      }
     }
 
-    await tx.wallet.update({
-      where: { userId: Number(from) },
-      data: { balance: { decrement: amount } },
+    // Log unexpected errors for debugging
+    console.error("[P2P Transfer] Transaction failed:", {
+      from,
+      to,
+      amount,
+      error: error instanceof Error ? error.message : String(error),
     });
 
-    await tx.wallet.update({
-      where: { userId: toUser.id },
-      data: { balance: { increment: amount } },
-    });
-
-    await tx.p2pTransfer.create({
-      data: {
-        fromUserId: Number(from),
-        toUserId: toUser.id,
-        amount,
-        timestamp: new Date()
-      }
-    })
-  });
+    return {
+      message: "Transfer failed. Please try again."
+    };
+  }
 }

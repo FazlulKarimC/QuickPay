@@ -40,7 +40,6 @@ export default async function CheckoutPage({
                 <div className="w-full max-w-md space-y-4">
 
                     <MerchantHeader
-                        // @ts-ignore
                         name={payment.merchant?.name || "Merchant"}
                         reference={payment.id}
                     />

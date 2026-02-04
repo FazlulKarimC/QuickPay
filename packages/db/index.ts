@@ -15,6 +15,6 @@ export default prisma
 // Re-export PrismaClient and types for use in other packages
 export { PrismaClient } from '@prisma/client'
 export type { Merchant, PaymentIntent, User, Wallet, WalletTransaction, RateLimitEntry, Prisma } from '@prisma/client'
-export { PaymentStatus, PaymentMethod, TransactionType } from '@prisma/client'
+export { PaymentStatus, PaymentMethod, TransactionType, AuthType } from '@prisma/client'
 
 if (process.env.NODE_ENV !== 'production') globalThis.prismaGlobal = prisma

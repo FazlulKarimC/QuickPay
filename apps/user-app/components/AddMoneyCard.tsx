@@ -48,7 +48,13 @@ export const AddMoney = () => {
                     <TextInput
                         label=""
                         placeholder="Enter amount"
-                        onChange={(val) => setValue(Number(val))}
+                        type="number"
+                        onChange={(val) => {
+                            const numVal = Number(val);
+                            if (val === "" || (!isNaN(numVal) && numVal >= 0)) {
+                                setValue(numVal);
+                            }
+                        }}
                     />
                 </div>
 
