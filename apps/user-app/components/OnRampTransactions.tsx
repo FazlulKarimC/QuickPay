@@ -18,17 +18,17 @@ export const OnRampTransactions = ({
         </Card>
     }
     return <Card title="Recent Transactions">
-        <div className="pt-2">
-            {transactions.map((t, index) => <div key={index} className="flex justify-between">
+        <div className="p-4 space-y-3">
+            {transactions.map((t, index) => <div key={index} className="flex justify-between py-2 border-b border-slate-200 dark:border-slate-800 last:border-0">
                 <div>
-                    <div className="text-sm">
+                    <div className="text-sm font-medium text-slate-900 dark:text-slate-100">
                         Received INR
                     </div>
-                    <div className="text-slate-600 text-xs">
+                    <div className="text-slate-600 dark:text-slate-400 text-xs mt-1">
                         {t.time.toDateString()}
                     </div>
                 </div>
-                <div className="flex flex-col justify-center">
+                <div className="flex flex-col justify-center font-semibold text-green-600 dark:text-green-400">
                     + Rs {t.amount / 100}
                 </div>
 

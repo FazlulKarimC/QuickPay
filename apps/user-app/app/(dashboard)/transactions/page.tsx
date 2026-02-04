@@ -18,7 +18,7 @@ export default async function TransactionsPage() {
         amount: t.amount,
         status: t.type === 'credit' ? 'succeeded' : 'succeeded', // Wallet transactions are always completed
         createdAt: t.createdAt,
-        provider: t.type === 'credit' ? 'Received' : 'Sent'
+        provider: t.description || (t.type === 'credit' ? 'Received' : 'Sent')
     }));
 
     return (

@@ -77,8 +77,8 @@ export async function p2pTransfer(to: string, amount: number): Promise<TransferR
         data: { balance: { increment: amount } },
       });
 
-      // Record the transfer
-      await tx.p2pTransfer.create({
+      // Record the transfer in p2pTransfer table
+      const p2pRecord = await tx.p2pTransfer.create({
         data: {
           fromUserId: Number(from),
           toUserId: toUser.id,
@@ -86,6 +86,35 @@ export async function p2pTransfer(to: string, amount: number): Promise<TransferR
           timestamp: new Date()
         }
       });
+
+      // Create wallet transaction for sender (debit)
+      await tx.walletTransaction.create({
+        data: {
+          walletId: fromWallet.id,
+          type: 'debit',
+          amount,
+          reference: `p2p_${p2pRecord.id}`,
+          description: `Sent to ${toUser.number}`
+        }
+      });
+
+      // Get recipient wallet to create transaction
+      const toWallet = await tx.wallet.findUnique({
+        where: { userId: toUser.id }
+      });
+
+      if (toWallet) {
+        // Create wallet transaction for recipient (credit)
+        await tx.walletTransaction.create({
+          data: {
+            walletId: toWallet.id,
+            type: 'credit',
+            amount,
+            reference: `p2p_${p2pRecord.id}`,
+            description: `Received from ${session.user.id}`
+          }
+        });
+      }
     });
 
     return {

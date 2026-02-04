@@ -5,6 +5,15 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 export function TransactionList({ transactions }: { transactions: any[] }) {
+    // Map wallet transactions to table format
+    const tableData = transactions.map(t => ({
+        id: t.id,
+        amount: t.amount,
+        status: 'succeeded', // Wallet transactions are always completed
+        createdAt: t.createdAt,
+        provider: t.description || (t.type === 'credit' ? 'Received' : 'Sent')
+    }));
+
     return (
         <div className="space-y-4">
             <div className="flex items-center justify-between">
@@ -16,8 +25,8 @@ export function TransactionList({ transactions }: { transactions: any[] }) {
                 </Link>
             </div>
 
-            <Card className="border-0 shadow-none bg-transparent">
-                <TransactionTable transactions={transactions} />
+            <Card className="border-0 shadow-none bg-transparent p-0">
+                <TransactionTable transactions={tableData} />
             </Card>
         </div>
     );

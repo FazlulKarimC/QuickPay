@@ -12,6 +12,18 @@ export async function createOnRampTransaction(provider: string, amount: number) 
             message: "Unauthenticated request"
         }
     }
+
+    // Safety check for stale sessions/database resets
+    const user = await prisma.user.findUnique({
+        where: { id: Number(session.user.id) }
+    });
+
+    if (!user) {
+        return {
+            message: "User context not found. Please log out and log back in."
+        }
+    }
+
     const token = (Math.random() * 1000).toString();
     const merchant = await prisma.merchant.findFirst();
     if (!merchant) {
@@ -19,7 +31,7 @@ export async function createOnRampTransaction(provider: string, amount: number) 
             message: "Merchant not found"
         }
     }
-    await prisma.paymentIntent.create({
+    const paymentIntent = await prisma.paymentIntent.create({
         data: {
             merchantId: merchant.id,
             status: "processing", // lowercase enum
@@ -32,6 +44,7 @@ export async function createOnRampTransaction(provider: string, amount: number) 
     });
 
     return {
-        message: "Done"
+        message: "Done",
+        paymentIntentId: paymentIntent.id
     }
 }
