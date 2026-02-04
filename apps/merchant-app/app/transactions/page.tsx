@@ -11,12 +11,20 @@ async function getMerchantTransactions() {
         take: 20
     });
 
+    // Map payment methods to user-friendly names
+    const paymentMethodLabels: Record<string, string> = {
+        'card': 'Card Payment',
+        'upi': 'UPI',
+        'netbanking': 'Net Banking',
+        'wallet': 'Wallet'
+    };
+
     return txns.map(t => ({
         id: t.id,
         amount: t.amount,
         status: t.status,
         createdAt: t.createdAt,
-        provider: t.paymentMethod || 'Unknown'
+        provider: paymentMethodLabels[t.paymentMethod || ''] || t.paymentMethod || 'Bank Transfer'
     }));
 }
 
