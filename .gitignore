@@ -26,6 +26,7 @@ coverage
 out/
 build
 dist
+*.tsbuildinfo
 
 
 # Debug
@@ -38,6 +39,8 @@ yarn-error.log*
 *_log.txt
 *_output.txt
 *-error.txt
+**/tsc-errors.txt
+**/build-error.log
 
 # Misc
 .DS_Store

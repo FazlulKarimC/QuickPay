@@ -304,7 +304,7 @@ export async function confirmPayment(
     }
 
     // Send to bank simulator for async processing with timeout
-    const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3002';
+    const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
     const bankSimulatorUrl = `${baseUrl}/api/bank-simulator/process`;
     const callbackUrl = `${baseUrl}/api/webhooks/bank`;
 

@@ -13,7 +13,7 @@ const MAX_DELAY_MS = parseInt(process.env.BANK_MAX_DELAY_MS || '5000', 10);
 // Allowed callback URL domains (for production security)
 // In production, set this to your actual domain(s)
 const ALLOWED_CALLBACK_DOMAINS = new Set(
-    (process.env.ALLOWED_CALLBACK_DOMAINS || 'localhost:3002,localhost:3000').split(',').map(d => d.trim().toLowerCase())
+    (process.env.ALLOWED_CALLBACK_DOMAINS || 'localhost:3000').split(',').map(d => d.trim().toLowerCase())
 );
 
 // Blocked hostnames and IPs for SSRF prevention

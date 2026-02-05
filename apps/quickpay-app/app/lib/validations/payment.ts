@@ -13,7 +13,7 @@ export const CreatePaymentIntentSchema = z.object({
         .number()
         .int('Amount must be an integer (in paise)')
         .positive('Amount must be positive')
-        .min(100, 'Minimum amount is ₹1 (100 paise)'),
+        .min(100, 'Minimum amount is INR 1 (100 paise)'),
     currency: z
         .string()
         .toUpperCase()
