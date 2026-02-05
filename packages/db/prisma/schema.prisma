@@ -26,9 +26,11 @@ model User {
 
 model Merchant {
   id             Int             @id @default(autoincrement())
-  email          String          @unique
+  email          String?         @unique
+  number         String          @unique  // Phone number for auth
+  password       String                   // Hashed password
   name           String?
-  auth_type      AuthType
+  auth_type      AuthType        @default(Google)
   apiKey         String          @unique @default(cuid())
   webhookUrl     String?
   

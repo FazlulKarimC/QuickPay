@@ -2,8 +2,22 @@
 
 > **Project Type**: Educational Payment Gateway (Stripe/Razorpay-like)  
 > **Estimated Duration**: 3-4 weeks  
-> **Last Updated**: January 13, 2026  
+> **Last Updated**: February 6, 2026  
 > **Design Reference**: [DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md)
+
+---
+
+## 🎉 Architecture Update (February 2026)
+
+**QuickPay has been migrated to a single unified application!**
+
+- ✅ Consolidated `user-app` and `merchant-app` into `quickpay-app`
+- ✅ Single deployment with route-based role separation (`/user/*` and `/merchant/*`)
+- ✅ Unified authentication with dual credential providers
+- ✅ Role-based middleware for route protection
+- ✅ Simplified deployment from 2 apps to 1 app
+
+**All phases below have been successfully completed.** This roadmap is kept for reference.
 
 ---
 

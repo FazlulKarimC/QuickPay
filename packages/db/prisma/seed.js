@@ -98,6 +98,8 @@ async function main() {
 
   const merchant = await prisma.merchant.create({
     data: {
+      number: "3333333333",  // Phone number for login
+      password: HASHED_PASSWORD,  // Same password as users for testing
       email: "store@testmerchant.com",
       name: "Super Store",
       auth_type: "Google",
