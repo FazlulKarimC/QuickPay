@@ -103,7 +103,7 @@ export default async function MerchantDashboard() {
             <Card className="p-6 border-slate-200 dark:border-slate-800">
                 <h3 className="text-lg font-semibold mb-6 text-slate-900 dark:text-white">Weekly Revenue</h3>
                 <div className="h-64 flex items-end justify-between gap-3">
-                    {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day, i) => {
+                    {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day) => {
                         const height = Math.random() * 80 + 20;
                         return (
                             <div key={day} className="flex-1 flex flex-col items-center gap-2">

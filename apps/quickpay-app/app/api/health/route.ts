@@ -3,9 +3,7 @@
  * Simple endpoint for testing API availability and rate limiting
  */
 
-import { NextRequest } from 'next/server';
-
-export async function GET(request: NextRequest) {
+export async function GET() {
     return Response.json({
         status: 'ok',
         timestamp: new Date().toISOString(),

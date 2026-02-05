@@ -24,17 +24,17 @@ export default async function CheckoutPage({
             redirect('/checkout/success');
         }
 
-        async function processPayment(formData: FormData) {
+        const processPayment = async (formData: FormData) => {
             "use server";
-            const method = formData.get('method') as string;
+            const method = formData.get('method') as string | null;
 
             // Call the confirm API (simulated for now via direct import or fetch)
             // For this phase, we mock the confirmation call or use the API route
             // Ideally we would call the confirmPayment service function here
 
             // Temporary redirect to success for demo
-            redirect(`/checkout/success?amount=${payment.amount}`);
-        }
+            redirect(`/checkout/success?amount=${payment.amount}&method=${method ?? "card"}`);
+        };
 
         return (
             <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center p-4">
@@ -123,7 +123,7 @@ export default async function CheckoutPage({
                             <PaymentSummary
                                 items={[
                                     { label: "Subtotal", value: <AmountDisplay amount={payment.amount} size="sm" /> },
-                                    { label: "Processing Fee", value: "₹0.00" },
+                                    { label: "Processing Fee", value: "INR 0.00" },
                                 ]}
                             />
                         </div>

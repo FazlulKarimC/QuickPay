@@ -1,5 +1,4 @@
 import { Wallet } from "lucide-react";
-import { AmountDisplay } from "@repo/ui/amount-display";
 
 export function WalletCard({ balance }: { balance: number }) {
     return (

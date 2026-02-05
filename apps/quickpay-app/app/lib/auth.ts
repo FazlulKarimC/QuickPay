@@ -3,6 +3,7 @@ import { AuthType } from "@repo/db/client";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
 import type { AuthOptions } from "next-auth";
+type AppRole = "user" | "merchant";
 
 export const authOptions: AuthOptions = {
     providers: [
@@ -122,16 +123,21 @@ export const authOptions: AuthOptions = {
         async jwt({ token, user }) {
             // Add role to token on sign-in
             if (user) {
-                token.role = user.role || "user";
                 token.userId = user.id;
+                token.role =
+                    "role" in user && (user.role === "merchant" || user.role === "user")
+                        ? user.role
+                        : "user";
             }
             return token;
         },
 
-        async session({ session, token }: any) {
+        async session({ session, token }) {
             // Add role and userId to session
-            session.user.id = token.sub || token.userId;
-            session.user.role = token.role || "user";
+            if (session.user) {
+                session.user.id = (token.userId ?? token.sub) as string;
+                session.user.role = (token.role as AppRole | undefined) ?? "user";
+            }
             return session;
         }
     },

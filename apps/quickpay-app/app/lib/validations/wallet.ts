@@ -4,7 +4,6 @@
  */
 
 import { z } from 'zod';
-import { TransactionType } from '@repo/db/client';
 
 /**
  * Query parameters for wallet transactions endpoint

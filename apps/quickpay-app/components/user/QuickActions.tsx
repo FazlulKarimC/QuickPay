@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Send, Plus, History, Settings } from "lucide-react";
-import { Button } from "@repo/ui/button";
 import { Card } from "@repo/ui/card";
 
 export function QuickActions() {

@@ -149,7 +149,7 @@ export async function cleanupOldEntries(maxAgeMs: number = DEFAULT_WINDOW_MS * 2
 }
 
 // Export configuration for use in middleware
-export const RateLimitConfig = {
+export const RateLimitDefaults = {
     PUBLIC_LIMIT: DEFAULT_PUBLIC_LIMIT,
     API_LIMIT: DEFAULT_API_LIMIT,
     WINDOW_MS: DEFAULT_WINDOW_MS,

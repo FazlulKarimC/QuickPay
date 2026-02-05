@@ -237,9 +237,10 @@ export async function POST(request: NextRequest) {
         console.log(`  Estimated delay: ${estimatedDelay}ms`);
 
         // Use waitUntil if available (Vercel, Cloudflare, etc.)
-        // This allows the async work to continue after response is sent
-        // @ts-expect-error - waitUntil may not be typed but is available in edge runtimes
-        const waitUntil = request.waitUntil || globalThis.waitUntil;
+        // This allows the async work to continue after response is sent.
+        const waitUntil = (request as NextRequest & {
+            waitUntil?: (promise: Promise<void>) => void;
+        }).waitUntil;
 
         if (typeof waitUntil === 'function') {
             // Serverless-compatible: use waitUntil to keep execution alive

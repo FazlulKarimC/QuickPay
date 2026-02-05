@@ -4,7 +4,7 @@ import { Card } from "@repo/ui/card";
 import { Select } from "@repo/ui/select";
 import { useState } from "react";
 import { TextInput } from "@repo/ui/textinput";
-import { createOnRampTransaction } from "../app/lib/actions/createOnrampTransaction";
+import { createOnRampTransaction } from "@/app/lib/actions/createOnrampTransaction";
 import { SimulatedBankModal } from "./SimulatedBankModal";
 import { Building, Plus, Banknote } from "lucide-react";
 import { useRouter } from "next/navigation";
