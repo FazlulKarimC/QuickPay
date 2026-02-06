@@ -3,6 +3,11 @@ import { DollarSign, CreditCard, Activity, TrendingUp } from "lucide-react";
 import prisma from "@repo/db/client";
 import { AmountDisplay } from "../../../components/shared/AmountDisplay";
 
+interface DayRevenue {
+    day: string;
+    amount: number;
+}
+
 async function getMerchantStats() {
     const merchant = await prisma.merchant.findFirst();
     if (!merchant) return null;
@@ -28,16 +33,65 @@ async function getMerchantStats() {
 
     const successRate = txCount > 0 ? ((successCount / txCount) * 100).toFixed(1) : 0;
 
+    // Get weekly revenue data (last 7 days)
+    const today = new Date();
+    const weekAgo = new Date(today);
+    weekAgo.setDate(weekAgo.getDate() - 6);
+    weekAgo.setHours(0, 0, 0, 0);
+
+    const weeklyPayments = await prisma.paymentIntent.findMany({
+        where: {
+            merchantId: merchant.id,
+            status: 'succeeded',
+            createdAt: {
+                gte: weekAgo
+            }
+        },
+        select: {
+            amount: true,
+            createdAt: true
+        }
+    });
+
+    // Aggregate by day
+    const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const weeklyData: DayRevenue[] = [];
+
+    for (let i = 6; i >= 0; i--) {
+        const date = new Date(today);
+        date.setDate(date.getDate() - i);
+        date.setHours(0, 0, 0, 0);
+
+        const nextDate = new Date(date);
+        nextDate.setDate(nextDate.getDate() + 1);
+
+        const dayTotal = weeklyPayments
+            .filter(p => {
+                const pDate = new Date(p.createdAt);
+                return pDate >= date && pDate < nextDate;
+            })
+            .reduce((sum, p) => sum + p.amount, 0);
+
+        weeklyData.push({
+            day: dayNames[date.getDay()] || '',
+            amount: dayTotal
+        });
+    }
+
     return {
         revenue: totalRevenue._sum.amount || 0,
         count: txCount,
         successRate,
-        merchantName: merchant.name
+        merchantName: merchant.name,
+        weeklyData
     };
 }
 
 export default async function MerchantDashboard() {
     const stats = await getMerchantStats();
+
+    // Calculate max for chart scaling
+    const maxAmount = Math.max(...(stats?.weeklyData?.map(d => d.amount) || [1]), 1);
 
     return (
         <div className="max-w-7xl mx-auto p-4 md:p-8 space-y-8 animate-in fade-in-50">
@@ -102,19 +156,34 @@ export default async function MerchantDashboard() {
 
             {/* Chart */}
             <Card className="p-6 border-slate-200 dark:border-slate-800">
-                <h3 className="text-lg font-semibold mb-6 text-slate-900 dark:text-white">Weekly Revenue</h3>
+                <div className="flex items-center justify-between mb-6">
+                    <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Weekly Revenue</h3>
+                    <span className="text-xs text-slate-500 dark:text-slate-400">Last 7 days</span>
+                </div>
                 <div className="h-64 flex items-end justify-between gap-3">
-                    {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day) => {
-                        const height = Math.random() * 80 + 20;
+                    {stats?.weeklyData?.map((data, idx) => {
+                        const height = maxAmount > 0 ? (data.amount / maxAmount) * 100 : 0;
+                        const hasData = data.amount > 0;
                         return (
-                            <div key={day} className="flex-1 flex flex-col items-center gap-2">
+                            <div key={idx} className="flex-1 flex flex-col items-center gap-2">
                                 <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-lg relative h-full">
                                     <div
-                                        className="absolute bottom-0 w-full bg-linear-to-t from-indigo-600 to-indigo-400 rounded-lg transition-all hover:from-indigo-500 hover:to-indigo-300"
-                                        style={{ height: `${height}%` }}
+                                        className={`absolute bottom-0 w-full rounded-lg transition-all ${hasData
+                                                ? 'bg-linear-to-t from-indigo-600 to-indigo-400 hover:from-indigo-500 hover:to-indigo-300'
+                                                : 'bg-slate-200 dark:bg-slate-700'
+                                            }`}
+                                        style={{ height: `${hasData ? Math.max(height, 5) : 5}%` }}
+                                        title={`₹${(data.amount / 100).toFixed(2)}`}
                                     />
                                 </div>
-                                <span className="text-xs text-slate-500 dark:text-slate-400">{day}</span>
+                                <div className="text-center">
+                                    <span className="text-xs text-slate-500 dark:text-slate-400 block">{data.day}</span>
+                                    {hasData && (
+                                        <span className="text-xs font-medium text-slate-700 dark:text-slate-300">
+                                            ₹{(data.amount / 100).toFixed(0)}
+                                        </span>
+                                    )}
+                                </div>
                             </div>
                         );
                     })}
@@ -123,3 +192,4 @@ export default async function MerchantDashboard() {
         </div>
     );
 }
+

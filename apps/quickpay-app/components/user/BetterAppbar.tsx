@@ -22,7 +22,7 @@ export function BetterAppbar() {
     return (
         <div className="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md">
             <div className="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto">
-                <div className="text-2xl font-bold bg-linear-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent cursor-pointer" onClick={() => router.push('/user/dashboard')}>
+                <div className="text-2xl font-bold bg-linear-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent cursor-pointer" onClick={() => router.push('/')}>
                     QuickPay
                 </div>
 
@@ -52,7 +52,7 @@ export function BetterAppbar() {
                         onClick={async () => {
                             if (user) {
                                 await signOut()
-                                router.push("/login")
+                                router.push("/")
                             } else {
                                 signIn()
                             }

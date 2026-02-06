@@ -1,18 +1,26 @@
 "use client";
 
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 
 export default function UserLogin() {
     const router = useRouter();
+    const { data: session, status } = useSession();
     const [phone, setPhone] = useState("1111111111");
     const [password, setPassword] = useState("password");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
+
+    // Redirect if already logged in as user
+    useEffect(() => {
+        if (status === "authenticated" && session?.user?.role === "user") {
+            router.push("/user/dashboard");
+        }
+    }, [session, status, router]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
