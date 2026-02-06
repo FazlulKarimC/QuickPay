@@ -1,16 +1,11 @@
 import { Card } from "@repo/ui/card";
 import { Wallet, Lock, Calculator } from "lucide-react";
+import { AmountDisplay } from "../shared/AmountDisplay";
 
 export const BalanceCard = ({ amount, locked }: {
     amount: number;
     locked: number;
 }) => {
-    const formatCurrency = (val: number) =>
-        new Intl.NumberFormat('en-IN', {
-            style: 'currency',
-            currency: 'INR',
-            minimumFractionDigits: 2
-        }).format(val / 100);
 
     return (
         <Card title="Balance">
@@ -20,8 +15,8 @@ export const BalanceCard = ({ amount, locked }: {
                         <Wallet className="w-4 h-4" />
                         <span>Available Balance</span>
                     </div>
-                    <div className="font-semibold text-slate-900 dark:text-white">
-                        {formatCurrency(amount)}
+                    <div className="font-semibold">
+                        <AmountDisplay amount={amount} size="sm" className="text-slate-900 dark:text-white" />
                     </div>
                 </div>
 
@@ -30,8 +25,8 @@ export const BalanceCard = ({ amount, locked }: {
                         <Lock className="w-4 h-4" />
                         <span>Locked Balance</span>
                     </div>
-                    <div className="font-semibold text-slate-900 dark:text-white">
-                        {formatCurrency(locked)}
+                    <div className="font-semibold">
+                        <AmountDisplay amount={locked} size="sm" className="text-slate-900 dark:text-white" />
                     </div>
                 </div>
 
@@ -40,8 +35,8 @@ export const BalanceCard = ({ amount, locked }: {
                         <Calculator className="w-4 h-4" />
                         <span>Total Balance</span>
                     </div>
-                    <div className="text-lg font-bold text-indigo-600 dark:text-indigo-400">
-                        {formatCurrency(locked + amount)}
+                    <div>
+                        <AmountDisplay amount={locked + amount} size="sm" className="text-indigo-600 dark:text-indigo-400" />
                     </div>
                 </div>
             </div>

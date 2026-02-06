@@ -1,8 +1,9 @@
 import { Wallet } from "lucide-react";
+import { AmountDisplay } from "../shared/AmountDisplay";
 
 export function WalletCard({ balance }: { balance: number }) {
     return (
-        <div className="relative overflow-hidden rounded-2xl p-8 bg-gradient-to-br from-indigo-600 to-indigo-800 text-white shadow-xl">
+        <div className="relative overflow-hidden rounded-2xl p-8 bg-linear-to-br from-indigo-600 to-indigo-800 text-white shadow-xl">
             <div className="absolute top-0 right-0 p-4 opacity-10">
                 <Wallet className="w-32 h-32" />
             </div>
@@ -14,14 +15,7 @@ export function WalletCard({ balance }: { balance: number }) {
                 </div>
 
                 <div>
-                    {/* AmountDisplay inside dark bg needs white text force or context */}
-                    <div className="text-5xl font-bold tracking-tight text-white">
-                        {new Intl.NumberFormat('en-IN', {
-                            style: 'currency',
-                            currency: 'INR',
-                            minimumFractionDigits: 2
-                        }).format(balance / 100)}
-                    </div>
+                    <AmountDisplay amount={balance} size="xl" className="text-white" />
                 </div>
 
                 <div className="pt-2 text-sm text-indigo-200">

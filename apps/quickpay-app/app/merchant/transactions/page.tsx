@@ -1,6 +1,9 @@
 import { TransactionTable } from "@repo/ui/transaction-table";
 import prisma from "@repo/db/client";
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 async function getMerchantTransactions() {
     const merchant = await prisma.merchant.findFirst();
     if (!merchant) return [];

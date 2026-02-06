@@ -1,6 +1,7 @@
 import { Card } from "@repo/ui/card";
 import { DollarSign, CreditCard, Activity, TrendingUp } from "lucide-react";
 import prisma from "@repo/db/client";
+import { AmountDisplay } from "../../../components/shared/AmountDisplay";
 
 async function getMerchantStats() {
     const merchant = await prisma.merchant.findFirst();
@@ -59,8 +60,8 @@ export default async function MerchantDashboard() {
                             <DollarSign className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                         </div>
                     </div>
-                    <div className="text-2xl font-bold text-slate-900 dark:text-white">
-                        ₹{((stats?.revenue || 0) / 100).toLocaleString('en-IN', { minimumFractionDigits: 2 })}
+                    <div>
+                        <AmountDisplay amount={stats?.revenue || 0} size="md" className="text-slate-900 dark:text-white" />
                     </div>
                     <p className="text-xs text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
                         <TrendingUp className="w-3 h-3" />

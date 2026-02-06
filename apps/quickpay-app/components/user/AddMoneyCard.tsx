@@ -20,7 +20,7 @@ const SUPPORTED_BANKS = [
 export const AddMoney = () => {
     const router = useRouter();
     const [provider, setProvider] = useState(SUPPORTED_BANKS[0]?.name || "");
-    const [value, setValue] = useState(0);
+    const [value, setValue] = useState("");
     const [loading, setLoading] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
     const [paymentIntentId, setPaymentIntentId] = useState("");
@@ -31,7 +31,7 @@ export const AddMoney = () => {
         setError(null);
 
         try {
-            const result = await createOnRampTransaction(provider, value);
+            const result = await createOnRampTransaction(provider, Number(value));
 
             if (result.paymentIntentId) {
                 setPaymentIntentId(result.paymentIntentId);
@@ -50,8 +50,11 @@ export const AddMoney = () => {
     };
 
     const handlePaymentSuccess = () => {
-        // Refresh the page to show updated wallet balance
-        router.refresh();
+        // Clear form inputs
+        setValue("");
+        setError(null);
+        // Redirect to dashboard to show updated balance and transactions
+        router.push("/user/dashboard");
     };
 
     return (
@@ -70,7 +73,7 @@ export const AddMoney = () => {
                             onChange={(val) => {
                                 const numVal = Number(val);
                                 if (val === "" || (!isNaN(numVal) && numVal >= 0)) {
-                                    setValue(numVal);
+                                    setValue(val);
                                 }
                             }}
                         />
@@ -96,7 +99,7 @@ export const AddMoney = () => {
                         <Button
                             onClick={handleAddMoney}
                             className="w-full bg-indigo-600 hover:bg-indigo-700"
-                            disabled={loading || value <= 0}
+                            disabled={loading || !value || Number(value) <= 0}
                         >
                             <Plus className="w-4 h-4 mr-2" />
                             {loading ? "Processing..." : "Add Money"}
@@ -119,7 +122,7 @@ export const AddMoney = () => {
                 isOpen={modalOpen}
                 onClose={() => setModalOpen(false)}
                 paymentIntentId={paymentIntentId}
-                amount={value}
+                amount={Number(value)}
                 provider={provider}
                 onSuccess={handlePaymentSuccess}
             />

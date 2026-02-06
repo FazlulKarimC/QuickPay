@@ -5,6 +5,10 @@ import { OnRampTransactions } from "@/components/user/OnRampTransactions";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../lib/auth";
 import { redirect } from "next/navigation";
+import { BackButton } from "@/components/shared/BackButton";
+
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 async function getBalance() {
     const session = await getServerSession(authOptions);
@@ -24,21 +28,32 @@ async function getBalance() {
 
 async function getOnRampTransactions() {
     const session = await getServerSession(authOptions);
-    const txns = await prisma.paymentIntent.findMany({
-        where: {
-            userId: Number(session?.user?.id)
-        },
-        orderBy: {
-            createdAt: 'desc'
-        },
-        take: 10
+    if (!session?.user?.id) {
+        return [];
+    }
+
+    // Get user's wallet
+    const wallet = await prisma.wallet.findUnique({
+        where: { userId: Number(session.user.id) },
+        include: {
+            transactions: {
+                where: { type: 'credit' }, // Only show incoming money
+                orderBy: { createdAt: 'desc' },
+                take: 10
+            }
+        }
     });
-    return txns.map((t) => ({
+
+    if (!wallet) {
+        return [];
+    }
+
+    return wallet.transactions.map((t) => ({
         time: t.createdAt,
         amount: t.amount,
-        status: t.status,
-        provider: t.paymentMethod || 'Unknown'
-    }))
+        status: 'succeeded', // Wallet transactions are always completed
+        provider: t.description || 'Bank Transfer'
+    }));
 }
 
 export default async function TransferPage() {
@@ -48,9 +63,12 @@ export default async function TransferPage() {
     return (
         <div className="max-w-7xl mx-auto p-4 md:p-8 space-y-8 animate-in fade-in-50">
             {/* Page Header */}
-            <div className="flex flex-col gap-2">
-                <h1 className="text-3xl font-bold text-slate-900 dark:text-white">Add Money</h1>
-                <p className="text-slate-500 dark:text-slate-400">Add funds to your wallet using various payment methods.</p>
+            <div className="flex items-center gap-4">
+                <BackButton />
+                <div className="flex flex-col gap-2">
+                    <h1 className="text-3xl font-bold text-slate-900 dark:text-white">Add Money</h1>
+                    <p className="text-slate-500 dark:text-slate-400">Add funds to your wallet using various payment methods.</p>
+                </div>
             </div>
 
             {/* Content Grid */}
@@ -60,7 +78,7 @@ export default async function TransferPage() {
                 </div>
                 <div className="space-y-6">
                     <BalanceCard amount={balance.amount} locked={balance.locked} />
-                    <OnRampTransactions transactions={transactions} />
+                    <OnRampTransactions transactions={transactions} title="Recent Deposits" />
                 </div>
             </div>
         </div>

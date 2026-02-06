@@ -5,8 +5,10 @@ import { TextInput } from "@repo/ui/textinput";
 import { useState } from "react";
 import { p2pTransfer } from "@/app/lib/actions/p2pTransfer";
 import { Send, User, Banknote } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export function SendCard() {
+    const router = useRouter();
     const [number, setNumber] = useState("");
     const [amount, setAmount] = useState("");
     const [loading, setLoading] = useState(false);
@@ -25,8 +27,8 @@ export function SendCard() {
                 setNumber("");
                 setAmount("");
 
-                // Clear success message after 3 seconds
-                setTimeout(() => setMessage(null), 3000);
+                // Redirect to dashboard after showing success message
+                setTimeout(() => router.push("/user/dashboard"), 1500);
             } else {
                 setMessage({ type: "error", text: result.message || "Transfer failed" });
             }

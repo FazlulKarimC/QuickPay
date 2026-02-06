@@ -18,7 +18,7 @@ export function TransactionList({ transactions }: { transactions: any[] }) {
         <div className="space-y-4">
             <div className="flex items-center justify-between">
                 <h2 className="text-xl font-bold text-slate-900 dark:text-white">Recent Transactions</h2>
-                <Link href="/transactions">
+                <Link href="/user/transactions">
                     <Button variant="ghost" className="gap-2 text-indigo-600 dark:text-indigo-400">
                         View All <ArrowRight className="w-4 h-4" />
                     </Button>

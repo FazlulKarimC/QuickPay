@@ -34,12 +34,12 @@ export async function createOnRampTransaction(provider: string, amount: number) 
     const paymentIntent = await prisma.paymentIntent.create({
         data: {
             merchantId: merchant.id,
-            status: "processing", // lowercase enum
+            status: "created", // Start as 'created' so webhook can process it
             clientSecret: token,
             amount: amount * 100,
             userId: Number(session?.user?.id),
             currency: "INR",
-            paymentMethod: "card" // Default to card for this mock
+            paymentMethod: null // Will be set when confirmed
         }
     });
 

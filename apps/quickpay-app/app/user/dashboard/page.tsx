@@ -7,6 +7,9 @@ import { WalletCard } from "@/components/user/WalletCard";
 import { QuickActions } from "@/components/user/QuickActions";
 import { TransactionList } from "@/components/user/TransactionList";
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export default async function Dashboard() {
     const session = await getServerSession(authOptions);
 

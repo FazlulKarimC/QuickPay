@@ -46,8 +46,8 @@ export function SimulatedBankModal({
         setStatus("processing");
 
         try {
-            // Call the bank simulator API
-            const response = await fetch("/api/bank-simulator/process", {
+            // Call the synchronous bank simulator API
+            const response = await fetch("/api/bank-simulator/process-sync", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -60,22 +60,9 @@ export function SimulatedBankModal({
                 }),
             });
 
-            if (!response.ok) {
-                throw new Error("Failed to process payment");
-            }
-
             const data = await response.json();
 
-            // Wait for the estimated delay plus a buffer
-            const waitTime = (data.estimatedDelayMs || 3000) + 1000;
-
-            await new Promise(resolve => setTimeout(resolve, waitTime));
-
-            // Check if payment was successful by fetching the payment intent
-            const checkResponse = await fetch(`/api/user/payment-status/${paymentIntentId}`);
-            const paymentIntent = await checkResponse.json();
-
-            if (paymentIntent.status === "succeeded") {
+            if (response.ok && data.status === 'succeeded') {
                 setStatus("success");
                 setMessage("Payment approved successfully!");
 
@@ -87,13 +74,9 @@ export function SimulatedBankModal({
                         setStatus("idle");
                     }, 2000);
                 }, 1500);
-            } else if (paymentIntent.status === "failed") {
-                setStatus("failed");
-                setMessage(paymentIntent.failureReason || "Payment was declined by the bank");
             } else {
-                // Still processing
-                setStatus("processing");
-                setProcessingMessage("Still processing... please wait");
+                setStatus("failed");
+                setMessage(data.message || "Payment was declined by the bank");
             }
         } catch (error) {
             setStatus("failed");
