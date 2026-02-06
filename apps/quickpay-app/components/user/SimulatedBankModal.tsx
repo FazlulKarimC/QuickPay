@@ -101,7 +101,7 @@ export function SimulatedBankModal({
             <div className="relative w-full max-w-md mx-4">
                 <div className="bg-white dark:bg-slate-900 rounded-lg shadow-2xl border border-slate-200 dark:border-slate-800">
                     {/* Header */}
-                    <div className="flex items-center justify-between p-6 border-b border-slate-200 dark:border-slate-800 bg-gradient-to-r from-indigo-600 to-purple-600">
+                    <div className="flex items-center justify-between p-6 border-b border-slate-200 dark:border-slate-800 bg-linear-to-r from-indigo-600 to-purple-600">
                         <div className="flex items-center gap-3">
                             <Building2 className="w-6 h-6 text-white" />
                             <div>
@@ -151,7 +151,7 @@ export function SimulatedBankModal({
 
                                     <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900 rounded-lg">
                                         <div className="flex gap-2">
-                                            <AlertCircle className="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
+                                            <AlertCircle className="w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
                                             <div>
                                                 <p className="text-xs text-blue-800 dark:text-blue-300 font-medium">
                                                     Educational Simulation
@@ -174,7 +174,7 @@ export function SimulatedBankModal({
                                     </button>
                                     <button
                                         onClick={handleApprove}
-                                        className="flex-1 px-4 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-lg font-medium transition-all shadow-lg shadow-indigo-500/30"
+                                        className="flex-1 px-4 py-3 bg-linear-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-lg font-medium transition-all shadow-lg shadow-indigo-500/30"
                                     >
                                         Approve Payment
                                     </button>

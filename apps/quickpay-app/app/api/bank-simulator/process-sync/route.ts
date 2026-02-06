@@ -61,6 +61,11 @@ export async function POST(request: NextRequest) {
                     },
                 });
 
+                // Ensure userId exists before wallet operations
+                if (!paymentIntent.userId) {
+                    throw new Error('Payment intent must have a userId for wallet operations');
+                }
+
                 // Get or create wallet
                 let wallet = paymentIntent.user?.wallet;
                 if (!wallet) {

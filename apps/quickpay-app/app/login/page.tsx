@@ -9,8 +9,8 @@ import { Card } from "@/components/ui/card";
 
 export default function UserLogin() {
     const router = useRouter();
-    const [phone, setPhone] = useState("");
-    const [password, setPassword] = useState("");
+    const [phone, setPhone] = useState("1111111111");
+    const [password, setPassword] = useState("password");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
 

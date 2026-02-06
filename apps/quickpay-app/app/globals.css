@@ -111,3 +111,21 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
+/* Landing page animations */
+@keyframes progress {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+.delay-700 {
+    animation-delay: 700ms;
+}
+
+.delay-1000 {
+    animation-delay: 1000ms;
+}

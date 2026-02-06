@@ -9,8 +9,8 @@ import { Card } from "@/components/ui/card";
 
 export default function MerchantLogin() {
     const router = useRouter();
-    const [phone, setPhone] = useState("");
-    const [password, setPassword] = useState("");
+    const [phone, setPhone] = useState("3333333333");
+    const [password, setPassword] = useState("password");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
 
@@ -54,7 +54,7 @@ export default function MerchantLogin() {
                         <Input
                             id="phone"
                             type="text"
-                            placeholder="1111111111"
+                            placeholder="3333333333"
                             value={phone}
                             onChange={(e) => setPhone(e.target.value)}
                             required

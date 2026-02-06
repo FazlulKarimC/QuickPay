@@ -51,7 +51,7 @@ async function main() {
       number: "1111111111",
       password: HASHED_PASSWORD,
       name: "Alice Johnson",
-      email: "alice@example.com",
+      email: "alice@quickpay.example.com",
       wallet: {
         create: {
           balance: 1000000, // 10,000 INR
@@ -74,7 +74,7 @@ async function main() {
       number: "2222222222",
       password: HASHED_PASSWORD,
       name: "Bob Smith",
-      email: "bob@example.com",
+      email: "bob@quickpay.example.com",
       wallet: {
         create: {
           balance: 500000, // 5,000 INR
@@ -91,7 +91,7 @@ async function main() {
     }
   });
 
-  console.log(`✅ Created users: ${alice.name}, ${bob.name}`);
+  console.log(`✅ Created users: ${alice.name} (${alice.number}), ${bob.name} (${bob.number})`);
 
   // ==================== MERCHANT ====================
   console.log("Creating Merchant...");
@@ -100,15 +100,15 @@ async function main() {
     data: {
       number: "3333333333",  // Phone number for login
       password: HASHED_PASSWORD,  // Same password as users for testing
-      email: "store@testmerchant.com",
-      name: "Super Store",
+      email: "merchant@quickpay.example.com",
+      name: "QuickPay Store",
       auth_type: "Google",
       apiKey: "test_api_key_123456789",
       webhookUrl: "http://localhost:3001/api/webhooks/payment"
     }
   });
 
-  console.log(`✅ Created merchant: ${merchant.name}`);
+  console.log(`✅ Created merchant: ${merchant.name} (${merchant.number})`);
 
   // ==================== PAYMENT INTENTS ====================
   console.log("Creating Payment Intents...");
