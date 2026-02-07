@@ -5,8 +5,11 @@
 
 import db from '@repo/db/client';
 import { TransactionType } from '@repo/db/client';
-import type { Wallet, WalletTransaction, Prisma } from '@repo/db/client';
+import type { Wallet, WalletTransaction } from '@repo/db/client';
 import { Errors } from '../api-error';
+
+// Define TransactionClient type using typeof to avoid Prisma namespace issues on Vercel
+type PrismaTransactionClient = Parameters<Parameters<typeof db.$transaction>[0]>[0];
 
 // Re-export types for convenience
 export type { Wallet, WalletTransaction };
@@ -105,7 +108,7 @@ export async function creditWallet(
         throw Errors.validationError({ amount: 'Amount must be positive' });
     }
 
-    const wallet = await db.$transaction(async (tx: Prisma.TransactionClient) => {
+    const wallet = await db.$transaction(async (tx: PrismaTransactionClient) => {
         // Get or create wallet
         let wallet = await tx.wallet.findUnique({
             where: { userId },
@@ -158,7 +161,7 @@ export async function debitWallet(
         throw Errors.validationError({ amount: 'Amount must be positive' });
     }
 
-    const wallet = await db.$transaction(async (tx: Prisma.TransactionClient) => {
+    const wallet = await db.$transaction(async (tx: PrismaTransactionClient) => {
         // Get wallet
         const wallet = await tx.wallet.findUnique({
             where: { userId },
@@ -229,7 +232,8 @@ export async function getTransactions(
     }
 
     // Build where clause
-    const where: Prisma.WalletTransactionWhereInput = {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const where: any = {
         walletId: wallet.id,
     };
 
@@ -238,7 +242,7 @@ export async function getTransactions(
     }
 
     // Cursor for pagination
-    let cursor: Prisma.WalletTransactionWhereUniqueInput | undefined;
+    let cursor: { id: string } | undefined = undefined;
     if (starting_after) {
         cursor = { id: starting_after };
     }

@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import db from '@repo/db/client';
 import { PaymentStatus } from '@repo/db/client';
-import type { Prisma } from '@repo/db/client';
+
+// Define TransactionClient type using typeof to avoid Prisma namespace issues on Vercel
+type TransactionClient = Parameters<Parameters<typeof db.$transaction>[0]>[0];
 
 interface ProcessRequest {
     paymentIntentId: string;
@@ -50,7 +52,7 @@ export async function POST(request: NextRequest) {
 
         if (success) {
             // Process successful payment in a transaction
-            await db.$transaction(async (tx: Prisma.TransactionClient) => {
+            await db.$transaction(async (tx: TransactionClient) => {
                 // Update payment intent
                 await tx.paymentIntent.update({
                     where: { id: paymentIntentId },

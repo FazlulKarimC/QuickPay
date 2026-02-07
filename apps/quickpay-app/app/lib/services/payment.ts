@@ -5,9 +5,12 @@
 
 import db from '@repo/db/client';
 import { PaymentStatus, PaymentMethod } from '@repo/db/client';
-import type { PaymentIntent, Prisma } from '@repo/db/client';
+import type { PaymentIntent } from '@repo/db/client';
 import { Errors } from '../api-error';
 import type { CreatePaymentIntentInput, ListPaymentIntentsQuery } from '../validations/payment';
+
+// Define TransactionClient type using typeof to avoid Prisma namespace issues on Vercel
+type TransactionClient = Parameters<Parameters<typeof db.$transaction>[0]>[0];
 
 // Re-export types for convenience
 export type { PaymentIntent };
@@ -95,7 +98,7 @@ export async function createPaymentIntent(
             data: {
                 amount: data.amount,
                 currency: data.currency || 'INR',
-                metadata: (data.metadata ?? {}) as Prisma.InputJsonValue,
+                metadata: (data.metadata ?? {}) as object,
                 merchantId,
                 idempotencyKey,
                 status: 'created',
@@ -212,7 +215,8 @@ export async function listPaymentIntents(
     merchantId: number,
     query: ListPaymentIntentsQuery
 ): Promise<{ data: PaymentIntentResponse[]; hasMore: boolean }> {
-    const where: Prisma.PaymentIntentWhereInput = {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const where: any = {
         merchantId,
     };
 
@@ -233,7 +237,7 @@ export async function listPaymentIntents(
     }
 
     // Apply cursor-based pagination
-    let cursor: Prisma.PaymentIntentWhereUniqueInput | undefined;
+    let cursor: { id: string } | undefined = undefined;
     if (query.starting_after) {
         cursor = { id: query.starting_after };
     }
@@ -444,7 +448,7 @@ export async function refundPayment(
     merchantId: number
 ): Promise<PaymentIntentResponse> {
     // Use transaction for atomicity - includes status check inside transaction
-    const updated = await db.$transaction(async (tx: Prisma.TransactionClient) => {
+    const updated = await db.$transaction(async (tx: TransactionClient) => {
         // Re-fetch inside transaction to prevent race conditions
         const paymentIntent = await tx.paymentIntent.findFirst({
             where: { id, merchantId },

@@ -2,7 +2,9 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth";
 import prisma from "@repo/db/client";
-import type { Prisma } from "@repo/db/client";
+
+// Define TransactionClient type using typeof to avoid Prisma namespace issues on Vercel
+type TransactionClient = Parameters<Parameters<typeof prisma.$transaction>[0]>[0];
 
 interface TransferResult {
   success?: boolean;
@@ -46,7 +48,7 @@ export async function p2pTransfer(to: string, amount: number): Promise<TransferR
   }
 
   try {
-    await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+    await prisma.$transaction(async (tx: TransactionClient) => {
       // Lock sender's wallet first (FOR UPDATE)
       await tx.$queryRaw`SELECT * FROM "Wallet" WHERE "userId" = ${Number(from)} FOR UPDATE`;
 

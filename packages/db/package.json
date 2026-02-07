@@ -1,6 +1,9 @@
 {
     "name": "@repo/db",
     "version": "0.0.0",
+    "scripts": {
+        "generate": "prisma generate"
+    },
     "dependencies": {
         "@prisma/client": "^6.2.0",
         "bcrypt": "^5.1.1",
