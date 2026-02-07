@@ -2,6 +2,7 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth";
 import prisma from "@repo/db/client";
+import type { Prisma } from "@repo/db/client";
 
 interface TransferResult {
   success?: boolean;
@@ -45,7 +46,7 @@ export async function p2pTransfer(to: string, amount: number): Promise<TransferR
   }
 
   try {
-    await prisma.$transaction(async (tx) => {
+    await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       // Lock sender's wallet first (FOR UPDATE)
       await tx.$queryRaw`SELECT * FROM "Wallet" WHERE "userId" = ${Number(from)} FOR UPDATE`;
 
