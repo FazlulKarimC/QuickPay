@@ -1,6 +1,9 @@
 import { Card } from "@repo/ui/card";
 import { DollarSign, CreditCard, Activity, TrendingUp } from "lucide-react";
 import prisma from "@repo/db/client";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import { authOptions } from "../../lib/auth";
 import { AmountDisplay } from "../../../components/shared/AmountDisplay";
 
 interface DayRevenue {
@@ -8,8 +11,10 @@ interface DayRevenue {
     amount: number;
 }
 
-async function getMerchantStats() {
-    const merchant = await prisma.merchant.findFirst();
+async function getMerchantStats(merchantId: number) {
+    const merchant = await prisma.merchant.findUnique({
+        where: { id: merchantId }
+    });
     if (!merchant) return null;
 
     const totalRevenue = await prisma.paymentIntent.aggregate({
@@ -88,7 +93,13 @@ async function getMerchantStats() {
 }
 
 export default async function MerchantDashboard() {
-    const stats = await getMerchantStats();
+    const session = await getServerSession(authOptions);
+
+    if (!session?.user?.id || session.user.role !== 'merchant') {
+        redirect('/merchant/login');
+    }
+
+    const stats = await getMerchantStats(Number(session.user.id));
 
     // Calculate max for chart scaling
     const maxAmount = Math.max(...(stats?.weeklyData?.map(d => d.amount) || [1]), 1);
@@ -169,8 +180,8 @@ export default async function MerchantDashboard() {
                                 <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-lg relative h-full">
                                     <div
                                         className={`absolute bottom-0 w-full rounded-lg transition-all ${hasData
-                                                ? 'bg-linear-to-t from-indigo-600 to-indigo-400 hover:from-indigo-500 hover:to-indigo-300'
-                                                : 'bg-slate-200 dark:bg-slate-700'
+                                            ? 'bg-linear-to-t from-indigo-600 to-indigo-400 hover:from-indigo-500 hover:to-indigo-300'
+                                            : 'bg-slate-200 dark:bg-slate-700'
                                             }`}
                                         style={{ height: `${hasData ? Math.max(height, 5) : 5}%` }}
                                         title={`₹${(data.amount / 100).toFixed(2)}`}

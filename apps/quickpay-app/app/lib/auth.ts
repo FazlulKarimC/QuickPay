@@ -5,6 +5,9 @@ import bcrypt from "bcrypt";
 import type { AuthOptions } from "next-auth";
 type AppRole = "user" | "merchant";
 
+// Validate 10-digit phone number
+const isValidPhone = (phone: string): boolean => /^[0-9]{10}$/.test(phone);
+
 export const authOptions: AuthOptions = {
     providers: [
         // User Authentication (phone + password)
@@ -17,6 +20,12 @@ export const authOptions: AuthOptions = {
             },
             async authorize(credentials: any) {
                 if (!credentials?.phone || !credentials?.password) {
+                    return null;
+                }
+
+                // Validate 10-digit phone number
+                if (!isValidPhone(credentials.phone)) {
+                    console.log("[Auth] Invalid phone format - must be exactly 10 digits");
                     return null;
                 }
 
@@ -72,6 +81,12 @@ export const authOptions: AuthOptions = {
             },
             async authorize(credentials: any) {
                 if (!credentials?.phone || !credentials?.password) {
+                    return null;
+                }
+
+                // Validate 10-digit phone number
+                if (!isValidPhone(credentials.phone)) {
+                    console.log("[Auth] Invalid phone format - must be exactly 10 digits");
                     return null;
                 }
 
