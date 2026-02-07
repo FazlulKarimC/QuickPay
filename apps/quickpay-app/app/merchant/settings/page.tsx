@@ -3,6 +3,9 @@ import { Button } from "@repo/ui/button";
 import prisma from "@repo/db/client";
 import { Eye, RefreshCw, Copy, Key, Webhook } from "lucide-react";
 
+// Prevent prerendering - this page requires database access
+export const dynamic = 'force-dynamic';
+
 async function getMerchantSettings() {
     const merchant = await prisma.merchant.findFirst();
     return merchant;

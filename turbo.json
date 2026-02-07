@@ -11,6 +11,12 @@
       "outputs": [
         ".next/**",
         "!.next/cache/**"
+      ],
+      "env": [
+        "DATABASE_URL",
+        "NEXTAUTH_SECRET",
+        "NEXTAUTH_URL",
+        "ALLOWED_CALLBACK_DOMAINS"
       ]
     },
     "lint": {
