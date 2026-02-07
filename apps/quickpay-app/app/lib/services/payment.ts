@@ -444,7 +444,7 @@ export async function refundPayment(
     merchantId: number
 ): Promise<PaymentIntentResponse> {
     // Use transaction for atomicity - includes status check inside transaction
-    const updated = await db.$transaction(async (tx) => {
+    const updated = await db.$transaction(async (tx: Prisma.TransactionClient) => {
         // Re-fetch inside transaction to prevent race conditions
         const paymentIntent = await tx.paymentIntent.findFirst({
             where: { id, merchantId },

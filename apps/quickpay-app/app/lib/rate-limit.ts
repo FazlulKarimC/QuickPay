@@ -4,6 +4,7 @@
  */
 
 import db from '@repo/db/client';
+import type { Prisma } from '@repo/db/client';
 
 // Configuration from environment variables
 const DEFAULT_WINDOW_MS = parseInt(process.env.RATE_LIMIT_WINDOW_MS || '60000', 10);
@@ -41,7 +42,7 @@ export async function checkRateLimit(
     try {
         // Get or create rate limit entry for current window
         // We use upsert to atomically increment the counter
-        const result = await db.$transaction(async (tx) => {
+        const result = await db.$transaction(async (tx: Prisma.TransactionClient) => {
             // Get current window entry
             const currentEntry = await tx.rateLimitEntry.findFirst({
                 where: {

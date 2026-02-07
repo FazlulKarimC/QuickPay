@@ -6,6 +6,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import db from '@repo/db/client';
 import { PaymentStatus } from '@repo/db/client';
+import type { Prisma } from '@repo/db/client';
 
 /**
  * Callback payload from bank simulator
@@ -97,7 +98,7 @@ async function handlePaymentSuccess(
     },
     payload: BankCallbackPayload
 ) {
-    await db.$transaction(async (tx) => {
+    await db.$transaction(async (tx: Prisma.TransactionClient) => {
         // Update payment intent
         await tx.paymentIntent.update({
             where: { id: paymentIntent.id },

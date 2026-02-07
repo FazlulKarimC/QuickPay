@@ -105,7 +105,7 @@ export async function creditWallet(
         throw Errors.validationError({ amount: 'Amount must be positive' });
     }
 
-    const wallet = await db.$transaction(async (tx) => {
+    const wallet = await db.$transaction(async (tx: Prisma.TransactionClient) => {
         // Get or create wallet
         let wallet = await tx.wallet.findUnique({
             where: { userId },
@@ -158,7 +158,7 @@ export async function debitWallet(
         throw Errors.validationError({ amount: 'Amount must be positive' });
     }
 
-    const wallet = await db.$transaction(async (tx) => {
+    const wallet = await db.$transaction(async (tx: Prisma.TransactionClient) => {
         // Get wallet
         const wallet = await tx.wallet.findUnique({
             where: { userId },
