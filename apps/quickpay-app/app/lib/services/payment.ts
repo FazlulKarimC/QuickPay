@@ -25,7 +25,7 @@ export interface PaymentIntentResponse {
     status: PaymentStatus;
     clientSecret: string;
     paymentMethod: PaymentMethod | null;
-    metadata: Prisma.JsonValue;
+    metadata: Record<string, unknown> | null;
     failureReason: string | null;
     bankReference: string | null;
     createdAt: string;
@@ -42,7 +42,7 @@ export interface PublicPaymentIntentResponse {
     currency: string;
     status: PaymentStatus;
     paymentMethod: PaymentMethod | null;
-    metadata: Prisma.JsonValue;
+    metadata: Record<string, unknown> | null;
     failureReason: string | null;
     createdAt: string;
     merchant: {
@@ -62,7 +62,7 @@ function toResponse(pi: PaymentIntent): PaymentIntentResponse {
         status: pi.status,
         clientSecret: pi.clientSecret,
         paymentMethod: pi.paymentMethod,
-        metadata: pi.metadata,
+        metadata: pi.metadata as Record<string, unknown> | null,
         failureReason: pi.failureReason,
         bankReference: pi.bankReference,
         createdAt: pi.createdAt.toISOString(),
@@ -163,7 +163,7 @@ export async function getPaymentIntentBySecret(
         currency: paymentIntent.currency,
         status: paymentIntent.status,
         paymentMethod: paymentIntent.paymentMethod,
-        metadata: paymentIntent.metadata,
+        metadata: paymentIntent.metadata as Record<string, unknown> | null,
         failureReason: paymentIntent.failureReason,
         createdAt: paymentIntent.createdAt.toISOString(),
         merchant: {
@@ -195,7 +195,7 @@ export async function getPaymentIntentById(
         currency: paymentIntent.currency,
         status: paymentIntent.status,
         paymentMethod: paymentIntent.paymentMethod,
-        metadata: paymentIntent.metadata,
+        metadata: paymentIntent.metadata as Record<string, unknown> | null,
         failureReason: paymentIntent.failureReason,
         createdAt: paymentIntent.createdAt.toISOString(),
         merchant: {
